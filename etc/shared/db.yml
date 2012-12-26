@@ -1,0 +1,3 @@
+db: 
+    dsn: dbi:Pg:dbname=pdd;host=localhost
+    AutoCommit: 1 
