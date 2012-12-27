@@ -5,9 +5,9 @@ table 'bookmark';
 
 primary_column bookmark_id => { data_type => integer, is_auto_increment => 1 };
 
-column link => { data_type => text };
+unique_column link => { data_type => text, default_value => "" };
 
-column title => { data_type => text };
+column title => { data_type => text, default_value => "" };
 
 add_create_date_column;
 

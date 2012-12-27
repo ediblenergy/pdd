@@ -19,7 +19,7 @@ sub import {
 
     sub add_create_date_column {
         my $class = shift;
-        $class->add_column( create_date => { data_type => timestamp, set_on_create => 1 } );
+        $class->add_column( create_date => { data_type => timestamp, set_on_create => 1, default_value => 0 } );
     }
 
     # so you don't depend on ::Candy
