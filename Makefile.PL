@@ -12,6 +12,7 @@ WriteMakefile(
       'DBIx::Class::Candy' => '0.002103',
       'DBD::Pg' => '2.19.3',
       'DBIx::Class::Migration' => '0.034',
+      'DBIx::Class::TimeStamp' => '0.14',
   },
 );
 __END__

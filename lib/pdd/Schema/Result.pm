@@ -5,16 +5,29 @@ use DBIx::Class::Candy ();
 
 sub import {
     my $target = caller;
-    DBIx::Class::Candy->import::into($target);
-    strictures->import::into($target,1);
-    pdd::Schema::Util->import::into($target,qw[ integer text ]);
+    DBIx::Class::Candy->import::into( $target,
+        '-components' => [qw( TimeStamp +pdd::Schema::Util )] );
+    strictures->import::into( $target, 1 );
 }
 {
-    package pdd::Schema::Util;
 
-    use parent 'Exporter';
-    our @EXPORT_OK = qw[ integer text ];
+    package pdd::Schema::Util;
+    use strictures 1;
     sub integer { 'integer' }
-    sub text { 'text' }
+    sub text    { 'text' }
+    sub timestamp { 'timestampz' }
+
+    sub add_create_date_column {
+        my $class = shift;
+        $class->add_column( create_date => { data_type => timestamp, set_on_create => 1 } );
+    }
+
+    # so you don't depend on ::Candy
+    eval {
+        require DBIx::Class::Candy::Exports;
+        DBIx::Class::Candy::Exports->import;
+        export_methods( [qw( add_create_date_column integer text timestamp)] );
+    };
+    warn $@ if $@;
 }
 1;
