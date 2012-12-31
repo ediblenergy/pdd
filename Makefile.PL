@@ -13,11 +13,14 @@ WriteMakefile(
       'DBD::Pg' => '2.19.3',
       'DBIx::Class::Migration' => '0.034',
       'DBIx::Class::TimeStamp' => '0.14',
+      'Moo' => 1,
+      strictures => 1,
+      'Data::Rmap' => '0.62',
+      'IO::All' => '0.46',
+      'Safe::Isa' => '1.000002',
+      'Data::Printer' => '0.35',
+      'HTML::Zoom' => '0.009006',
+      'Moose' => '2.0602',
+      'Function::Parameters' => '1.0004',
   },
 );
-__END__
-Checking if you have ExtUtils::MakeMaker 0 ... Yes (6.64)
-Checking if you have DBIx::Class::Candy 0 ... Yes (0.002103)
-Checking if you have DBD::Pg 0 ... Yes (2.19.3)
-Checking if you have DBIx::Class 0 ... Yes (0.08204)
-Checking if you have DBIx::Class::Migration 0.034 ... Yes (0.034)

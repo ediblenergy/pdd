@@ -3,3 +3,4 @@ Makefile
 *.db
 MANIFEST*
 MYMETA*
+*.xml

@@ -1,9 +1,8 @@
 use strictures 1;
 use Test::More;
 use YAML qw[ LoadFile ];
-use FindBin;
 use pdd::Schema;
-ok my $cfg = LoadFile("$FindBin::Bin/../etc/test/db.yml");
-
+use pdd::Config;
+ok my $cfg = pdd::Config->config('test');
 ok my $schema = pdd::Schema->connect( $cfg->{db}{dsn} );
 done_testing;

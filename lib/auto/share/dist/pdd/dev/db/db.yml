@@ -1,0 +1,3 @@
+db:
+    dsn: dbi:SQLite:share/pdd_sqlite.db
+    AutoCommit: 1
