@@ -23,5 +23,8 @@ WriteMakefile(
       'Moose' => '2.0602',
       'Function::Parameters' => '1.0004',
       'MooseX::Attributeshortcuts' => '0.017',
+      'Plack' => '1.0014',
+      'Starman' => '0.3006',
+      'Plack::Middleware::Debug' => '0.14',
   },
 );
