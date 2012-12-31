@@ -22,5 +22,6 @@ WriteMakefile(
       'HTML::Zoom' => '0.009006',
       'Moose' => '2.0602',
       'Function::Parameters' => '1.0004',
+      'MooseX::Attributeshortcuts' => '0.017',
   },
 );
