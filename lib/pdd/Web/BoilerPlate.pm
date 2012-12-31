@@ -6,7 +6,9 @@ use Moose;
 use Function::Parameters ();
 use Data::Printer;
 use MooseX::AttributeShortcuts;
+
 sub import {
+    my ($class,@args) = @_;
     my $target = caller;
     feature->import::into($target, ':5.14');
     strictures->import::into( $target, 1 );
@@ -14,5 +16,6 @@ sub import {
     MooseX::AttributeShortcuts->import::into($target);
     Function::Parameters->import::into($target);
     Data::Printer->import::into($target);
+
 }
 1;

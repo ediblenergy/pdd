@@ -1,11 +1,17 @@
 package pdd::Web::View::HTML;
 use pdd::Web::BoilerPlate;
+use Encode;
 use HTML::Zoom;
 require pdd::Web;
 extends 'Catalyst::View';
 
 has wrapper => (
     is => 'lazy', 
+);
+
+has encoding => ( 
+    is => 'ro',
+    default => sub { Encode::find_encoding("UTF-8") },
 );
 
 method _build_wrapper {
@@ -28,7 +34,10 @@ method process ( $ctx ) {
 
 method render ( $ctx, :$body ) {
     $ctx->response->content_type('text/html; charset=utf-8');
-    $ctx->response->body( $body );
+    $ctx->response->body( 
+        $self->encoding->encode($body)
+    
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

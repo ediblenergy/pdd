@@ -1,9 +1,8 @@
 package pdd::Web;
-use strictures 1;
+use pdd::Web::BoilerPlate;
 
 my $class = __PACKAGE__;
 
-use Moose;
 use pdd::Config;
 
 use Catalyst;

@@ -17,7 +17,6 @@ method root($ctx,:$template,:$data) {
         [
             map { 
             my $entry = $_;
-            p $entry;
             _bookmark( 
                 title => $entry->{title}, 
                 host => $entry->{host},

@@ -1,0 +1,6 @@
+catalyst:
+    Model::pdd:
+        connect_info:
+            dsn: dbi:SQLite:share/pdd_sqlite.db
+            AutoCommit: 1
+            
