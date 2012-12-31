@@ -1,16 +1,29 @@
 package pdd::Web::View::HTML;
 use pdd::Web::BoilerPlate;
 use HTML::Zoom;
+require pdd::Web;
 extends 'Catalyst::View';
+
+has wrapper => (
+    is => 'lazy', 
+);
+
+method _build_wrapper {
+    HTML::Zoom->from_file(
+        pdd::Web->path_to( "root", "template", 'html/wrapper/html5.html' ) );
+}
+
 method process ( $ctx ) {
-    my $file = $ctx->path_to( "root", "template", $ctx->stash->{template} );
-    my $view = ref $ctx->controller;
+    my $file    = $ctx->path_to( "root", "template", $ctx->stash->{template} );
+    my $wrapper = $self->wrapper;
+    my $view    = ref $ctx->controller;
     my $action_name = $ctx->action->name;
     $view =~ s/.*?Controller:://;
-    my $zoom = $ctx->forward( $ctx->view($view), $action_name,
+    my $inner_html =
+      $ctx->forward( $ctx->view($view), $action_name,
         [ HTML::Zoom->from_file($file) ] );
-    $self->render( $ctx, body => $zoom->to_html );
-    
+    my $html = $wrapper->select("#content")->replace_content($inner_html);
+    $self->render( $ctx, body => $html->to_html );
 }
 
 method render ( $ctx, :$body ) {
