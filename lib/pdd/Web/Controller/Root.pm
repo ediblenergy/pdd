@@ -16,6 +16,18 @@ $class->config(
 
 method root($ctx,@args) { 
     $ctx->stash( template => "html/page/home.html" );
+    $ctx->stash(
+        data => {
+            entries => [
+                {
+                    link  => 'linko',
+                    title => 'titlo',
+                    host  => 'hosto',
+                }
+              ]
+
+        }
+    );
     $ctx->forward(  $ctx->view("HTML") );
 
 }

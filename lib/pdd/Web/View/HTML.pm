@@ -21,7 +21,7 @@ method process ( $ctx ) {
     $view =~ s/.*?Controller:://;
     my $inner_html =
       $ctx->forward( $ctx->view($view), $action_name,
-        [ HTML::Zoom->from_file($file) ] );
+        [ template => HTML::Zoom->from_file($file), data => $ctx->stash->{data} ] );
     my $html = $wrapper->select("#content")->replace_content($inner_html);
     $self->render( $ctx, body => $html->to_html );
 }

@@ -3,19 +3,30 @@ use pdd::Web::BoilerPlate;
 extends 'Catalyst::Component';
 my $class = __PACKAGE__;
 
-method root($ctx,$zoom) {
-    $zoom->select(".bookmark")->repeat_content(
+fun _bookmark ( :$title, :$host, :$link ) {
+    fun($entry) {
+        $entry->select("a")
+            ->replace_content($title)
+            ->select("small")
+            ->replace_content($host);
+    }
+}
+
+method root($ctx,:$template,:$data) {
+    $template->select(".bookmark")->repeat_content(
         [
-            map {
-                sub {
-                    $_->select("a")
-                    ->replace_content('testo presto')
-                    ->select("small")
-                    ->replace_content("smallz");
-                  }
-            } 0 .. 10
+            map { 
+            my $entry = $_;
+            p $entry;
+            _bookmark( 
+                title => $entry->{title}, 
+                host => $entry->{host},
+                link => $entry->{link},
+            ) 
+            } @{ $data->{entries} }
         ]
     );
 }
+
 $class->meta->make_immutable;
 1;
