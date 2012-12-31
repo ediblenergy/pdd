@@ -22,7 +22,6 @@ fun _bookmark ( :$title, :$host, :$link ) {
     }
 }
 
-## Please see file perltidy.ERR
 method root( $ctx, : $template, : $data ) {
     $template->select(".bookmark")->repeat_content(
         [
