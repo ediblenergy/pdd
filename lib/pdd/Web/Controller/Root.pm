@@ -12,11 +12,17 @@ my $class = __PACKAGE__;
 
 $class->config( 
     namespace => "",
+    action_roles => [qw( 
+        +CatalystX::ActionRole::StashReturnInData
+    )],
     action => {
         root => {
             Chained => "/",
             Local => 1,
             PathPart => "",
+        },
+        end => {
+            Action => 1,
         }
     }
 );
@@ -37,7 +43,12 @@ method root($ctx,@args) {
             host  => $link->host
           }
     } $rs->all;
-    $ctx->stash( data => { entries => \@data } );
+    return { entries => \@data };
+}
+
+sub end  {
+    my($self,$ctx) = @_;
+
     $ctx->forward(  $ctx->view("HTML") );
 }
 

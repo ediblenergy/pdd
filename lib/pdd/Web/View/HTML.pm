@@ -25,18 +25,22 @@ method process ( $ctx ) {
     my $view    = ref $ctx->controller;
     my $action_name = $ctx->action->name;
     $view =~ s/.*?Controller:://;
-    my $inner_html =
-      $ctx->forward( $ctx->view($view), $action_name,
-        [ template => HTML::Zoom->from_file($file), data => $ctx->stash->{data} ] );
+    my $inner_html = $ctx->forward(
+        $ctx->view($view),
+        $action_name,
+        [
+            template => HTML::Zoom->from_file($file),
+            data     => $ctx->stash->{data}
+        ]
+    );
     my $html = $wrapper->select("#content")->replace_content($inner_html);
     $self->render( $ctx, body => $html->to_html );
 }
 
 method render ( $ctx, :$body ) {
     $ctx->response->content_type('text/html; charset=utf-8');
-    $ctx->response->body( 
+    $ctx->response->body(
         $self->encoding->encode($body)
-    
     );
 }
 
