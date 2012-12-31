@@ -1,0 +1,14 @@
+.profile_photo {
+  background: url("/images/giraffe.png");
+  width: 280px;
+  height: 201px; }
+
+.bookmarks {
+  border-radius: 5px; }
+
+.right_sidebar {
+  border: 1px dashed #cccccc;
+  border-radius: 5px; }
+  .right_sidebar .sidebar_inner {
+    margin: 10px;
+    color: #333333; }
