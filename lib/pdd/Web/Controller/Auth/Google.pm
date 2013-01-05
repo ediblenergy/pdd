@@ -37,7 +37,6 @@ method auth_google ($ctx) {
 
 method login ( $ctx ) {
     my $redirect = $self->auth_google($ctx)->get_auth_url;
-    p $redirect;
     $ctx->res->redirect( $redirect );
     return $ctx->detach;
 }
