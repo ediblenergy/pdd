@@ -6,6 +6,9 @@ use Moose;
 use Function::Parameters ();
 use Data::Printer;
 use MooseX::AttributeShortcuts;
+use URI;
+use Log::Contextual (); #qw[ :log :dlog ];
+use Log::Dispatchouli ();
 
 sub import {
     my ($class,@args) = @_;
@@ -16,6 +19,7 @@ sub import {
     MooseX::AttributeShortcuts->import::into($target);
     Function::Parameters->import::into($target);
     Data::Printer->import::into($target);
-
+    URI->import::into($target);
 }
+
 1;

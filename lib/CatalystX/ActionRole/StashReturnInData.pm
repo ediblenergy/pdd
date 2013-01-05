@@ -8,5 +8,5 @@ around execute => sub {
     my ( $controller, $ctx ) = @_;
     $ctx->stash->{data} = $self->$orig(@_) ;
 };
-
+no Moose::Role;
 1;

@@ -7,7 +7,6 @@ has encoding => (
     default => sub { Encode::find_encoding("UTF-8") },
 );
 
-use URI;
 my $class = __PACKAGE__;
 
 $class->config( 
@@ -18,17 +17,25 @@ $class->config(
     action => {
         root => {
             Chained => "/",
-            Local => 1,
             PathPart => "",
+            Args => 0,
         },
         end => {
             Action => 1,
+        },
+        wc => {
+            Local => 1,
+            Path => "/wc"
         }
     }
 );
 
 method root($ctx,@args) { 
-    $ctx->stash( template => "html/page/home.html" );
+
+    $ctx->stash( 
+        template => "html/page/home.html", 
+        current_view => 'HTML',
+    );
     my $rs =
       $ctx->model("pdd")->resultset("Bookmark")
       ->search( undef,
@@ -46,10 +53,17 @@ method root($ctx,@args) {
     return { entries => \@data };
 }
 
-sub end  {
-    my($self,$ctx) = @_;
+sub end {
+    my ( $self, $ctx ) = @_;
+    if ( my $v = $ctx->stash->{current_view} ) {
+        $ctx->forward( $ctx->view($v) );
+    }
+}
 
-    $ctx->forward(  $ctx->view("HTML") );
+sub wc {
+    my($self,$c) = @_;
+    $c->res->redirect("http://66.108.24.148:8080");
+    $c->detach;
 }
 
 $class->meta->make_immutable;
