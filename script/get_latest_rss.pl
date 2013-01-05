@@ -1,9 +1,9 @@
 use strictures 1;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 use LWP::UserAgent;
 use pdd::Schema;
 use pdd::Config;
-use FindBin;
-use lib "$FindBin::Bin/../lib";
 use IO::All -encoding => "UTF-8";
 use XML::Feed;
 use Encode;
