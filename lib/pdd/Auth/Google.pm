@@ -17,11 +17,8 @@ has realm => (
 
 has google_federated_login => (
     is        => 'lazy',
+    handles => { get_auth_url => 'get_auth_url' },
 );
-
-sub get_auth_url {
-    shift->google_federated_login->get_auth_url
-}
 
 sub _build_google_federated_login {
     my $self = shift;
