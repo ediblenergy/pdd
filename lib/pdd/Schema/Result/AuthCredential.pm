@@ -6,7 +6,6 @@ table 'auth_credential';
 primary_column auth_credential_id =>
   { is_auto_increment => 1, data_type => integer };
 
-add_fk_user_id;
+fk_user_id, create_date;
 
-add_create_date;
 1;

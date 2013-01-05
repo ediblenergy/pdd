@@ -9,6 +9,6 @@ unique_column link => { data_type => text, default_value => "" };
 
 column title => { data_type => text, default_value => "" };
 
-add_create_date;
+create_date;
 
 1;

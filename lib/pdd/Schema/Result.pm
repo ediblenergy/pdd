@@ -23,7 +23,7 @@ sub import {
     sub text    { 'text' }
     sub timestamp { 'timestampz' }
 
-    sub add_create_date {
+    sub create_date {
         my $class = shift;
         $class->add_column(
             create_date => {
@@ -34,10 +34,16 @@ sub import {
         );
     }
 
-    sub add_fk_user_id {
+    sub fk_user_id {
         my $class = shift;
         $class->add_column( user_id => { data_type => integer });
         $class->belongs_to( user => '::User', 'user_id' );
+    }
+
+    sub auth_credential_id_fk {
+        my $class = shift;
+        $class->add_column( auth_credential_id => { data_type => integer } );
+        $class->belongs_to( auth_credential => "::AuthCredential", 'auth_credential_id' );
     }
 
     sub default_result_namespace { 'pdd::Schema::Result' }
@@ -45,9 +51,11 @@ sub import {
     export_methods(
         [
             qw(
-              add_create_date
-              add_fk_user_id
+              create_date
+              fk_user_id
               default_result_namespace
+              auth_credential_id_fk
+
               integer
               text
               timestamp
