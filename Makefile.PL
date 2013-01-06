@@ -36,5 +36,6 @@ WriteMakefile(
         'Catalyst::Plugin::Session'               => 0,
         'Catalyst::Plugin::Session::Store::Cache' => 0,
         'Catalyst::Plugin::Session::State::Cookie' => 0,
+        'HTML::Entities' => 0,
       },
 );

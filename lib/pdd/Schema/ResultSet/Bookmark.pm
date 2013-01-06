@@ -1,6 +1,6 @@
 package pdd::Schema::ResultSet::Bookmark;
 use pdd::Schema::ResultSet;
-
+use HTML::Entities;
 my $_encoding = Encode::find_encoding("UTF-8");
 sub encoding { $_encoding };
 
@@ -16,7 +16,7 @@ sub latest_bookarks {
             $link = URI->new($link);
             +{
                 link  => "$link",
-                title => $title,
+                title => decode_entities($title),
                 host  => $link->host
               }
         } $rs->all
