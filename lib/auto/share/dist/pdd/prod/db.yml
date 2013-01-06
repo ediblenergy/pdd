@@ -1,0 +1,4 @@
+db: 
+    dsn: dbi:Pg:dbname=pdd
+    AutoCommit: 1 
+
