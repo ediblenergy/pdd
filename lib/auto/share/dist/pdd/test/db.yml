@@ -1,5 +1,7 @@
 db: 
-    dsn: dbi:Pg:dbname=pdd_test
+    dsn: dbi:Pg:dbname=pdd
     AutoCommit: 1 
+    on_connect_do:
+        - set search_path = pdd_test,public
 db_copy:
     dsn:  __VAR({db}{dsn})__

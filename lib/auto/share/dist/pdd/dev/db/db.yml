@@ -1,3 +1,5 @@
 db:
-    dsn: dbi:Pg:dbname=pdd_dev
+    dsn: dbi:Pg:dbname=pdd
     AutoCommit: 1
+    on_connect_do:
+        - set search_path = pdd_dev,public
