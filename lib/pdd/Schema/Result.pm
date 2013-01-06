@@ -46,6 +46,11 @@ sub import {
         $class->belongs_to( auth_credential => "::AuthCredential", 'auth_credential_id' );
     }
 
+    sub email {
+        my $class = shift;
+        $class->add_column( email => { data_type => text } );
+    }
+
     sub default_result_namespace { 'pdd::Schema::Result' }
     # so you don't depend on ::Candy
     export_methods(
@@ -55,6 +60,7 @@ sub import {
               fk_user_id
               default_result_namespace
               auth_credential_id_fk
+              email
 
               integer
               text

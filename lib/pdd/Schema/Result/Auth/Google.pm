@@ -10,6 +10,9 @@ fk_user_id;
 
 create_date;
 
-primary_key qw[ auth_credential_id ];
+email;
 
+primary_key qw[ auth_credential_id email ];
+
+unique_constraint([qw{ email }]);
 1;
