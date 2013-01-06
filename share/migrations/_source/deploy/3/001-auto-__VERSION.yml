@@ -100,6 +100,8 @@ translator:
               data_type: timestampz
               default_value: 0
               dynamic_default_on_create: get_timestamp
+            email:
+              data_type: text
             user_id:
               data_type: integer
           _columns_info_loaded: 0
@@ -107,8 +109,10 @@ translator:
             - auth_credential_id
             - user_id
             - create_date
+            - email
           _primaries: &2
             - auth_credential_id
+            - email
           _relationships:
             auth_credential:
               attrs:
@@ -133,6 +137,8 @@ translator:
                 foreign.user_id: self.user_id
               source: pdd::Schema::Result::User
           _unique_constraints:
+            auth_google_email:
+              - email
             primary: *2
           name: auth_google
           result_class: pdd::Schema::Result::Auth::Google
@@ -299,7 +305,7 @@ translator:
           schema: *1
           source_name: __VERSION
       storage: !!perl/hash:DBIx::Class::Storage::DBI::SQLite
-        _conn_pid: 1913
+        _conn_pid: 17085
         _connect_info:
           - dbi:SQLite:share/pdd_sqlite.db
           - ''

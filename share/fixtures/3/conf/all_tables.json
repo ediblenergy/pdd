@@ -14,7 +14,7 @@
       },
       {
          "quantity" : "all",
-         "class" : "Auth::Google"
+         "class" : "AuthGoogle"
       },
       {
          "quantity" : "all",

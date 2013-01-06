@@ -1,0 +1,6 @@
+$HASH1 = {
+           bookmark_id => 15,
+           create_date => '2012-12-31T21:48:33',
+           link        => 'http://www.metafilter.com/122775/Im-Going-Straight',
+           title       => 'MeFi: I\'m Going Straight'
+         };

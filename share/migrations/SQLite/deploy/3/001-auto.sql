@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Tue Jan  1 22:51:59 2013
+-- Created on Sun Jan  6 01:58:31 2013
 -- 
 
 ;
@@ -42,11 +42,15 @@ CREATE INDEX auth_credential_idx_user_id ON auth_credential (user_id);
 -- Table: auth_google
 --
 CREATE TABLE auth_google (
-  auth_credential_id INTEGER PRIMARY KEY NOT NULL,
+  auth_credential_id integer NOT NULL,
   user_id integer NOT NULL,
   create_date timestampz NOT NULL DEFAULT '0',
+  email text NOT NULL,
+  PRIMARY KEY (auth_credential_id, email),
   FOREIGN KEY (auth_credential_id) REFERENCES auth_credential(auth_credential_id),
   FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
+CREATE INDEX auth_google_idx_auth_credential_id ON auth_google (auth_credential_id);
 CREATE INDEX auth_google_idx_user_id ON auth_google (user_id);
+CREATE UNIQUE INDEX auth_google_email ON auth_google (email);
 COMMIT

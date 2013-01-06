@@ -27,6 +27,7 @@ WriteMakefile(
         'Starman'                    => '0.3006',
         'Plack::Middleware::Debug'   => '0.14',
         'DBIx::Class::Helpers'       => '2.016003',
-        'OpenID::Login' => 0,
+        'Net::Google::FederatedLogin' => 0,
+        'Test::DBIx::Class' => 0,
     },
 );

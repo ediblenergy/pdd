@@ -1,0 +1,6 @@
+$HASH1 = {
+           bookmark_id => 28,
+           create_date => '2013-01-05T03:30:04',
+           link        => 'http://waxy.org/2013/01/glitch_text_adventure_and_fun_with_playfic/',
+           title       => 'Glitch: The Text Adventure, and Other Fun with Playfic'
+         };
