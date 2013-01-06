@@ -5,11 +5,16 @@ my $class = __PACKAGE__;
 
 use pdd::Config;
 
-use Catalyst;
+use Catalyst qw[
+    Cache
+    Session
+    Session::State::Cookie
+    Session::Store::Cache
+];
 
 extends 'Catalyst';
 
-$class->config( pdd::Config->config->{catalyst});
+$class->config( pdd::Config->config->{catalyst} );
 $class->setup;
 
 $class->meta->make_immutable;

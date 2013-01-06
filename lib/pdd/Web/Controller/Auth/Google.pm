@@ -42,9 +42,25 @@ method login ( $ctx ) {
 }
 
 method cb ( $ctx ) {
-    my $params = $self->auth_google($ctx)->verify($ctx->req->params) 
-        or return $self->_invalid_login($ctx); 
+    my $params = $self->auth_google($ctx)->verify( $ctx->req->params )
+      or return $self->_invalid_login($ctx);
     Dlog_debug { "req params: $_" } $params;
+    my $email = $params->{email};
+    my $credential =
+      $ctx->model("pdd::AuthGoogle")->find( { email => $email } );
+    my $user_id;
+    if ($credential) {
+        $user_id = $credential->pdd_user_id;
+    }
+    else {
+        my $user =
+          $ctx->model("pdd::pddUser")
+          ->create(
+            { auth_credentials => [ { auth_google => { email => $email } } ] }
+          );
+        $user_id = $user->pdd_user_id;
+    }
+    $ctx->session->{user_id} = $user_id;
 }
 
 method _invalid_login ( $ctx ) {
