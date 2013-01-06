@@ -1,5 +1,6 @@
 package pdd::Web::Controller::Root;
 use pdd::Web::BoilerPlate;
+use pdd::Log qw[ :log :dlog ];
 use Encode;
 extends 'pdd::Web::Controller';
 has encoding => (
@@ -30,28 +31,17 @@ $class->config(
     }
 );
 
-method root($ctx,@args) { 
-
-    $ctx->stash( 
-        template => "html/page/home.html", 
+## Please see file perltidy.ERR
+method root( $ctx, @args ) {
+    $ctx->stash(
+        template     => "html/page/home.html",
         current_view => 'HTML',
     );
-    my $rs =
-      $ctx->model("pdd")->resultset("Bookmark")
-      ->search( undef,
-        { order_by => { -desc => 'create_date' }, result_class => "::HRI" } );
-    my @data = map {
-        my ( $link, $title ) =
-          map { $self->encoding->decode($_) } ( $_->{link}, $_->{title} );
-        $link = URI->new($link);
-        +{
-            link  => "$link",
-            title => $title,
-            host  => $link->host
-          }
-    } $rs->all;
-    return { entries => \@data };
-}
+      return {
+        entries => $ctx->model("pdd")->resultset("Bookmark")->latest_bookarks
+      };
+
+  }
 
 sub end {
     my ( $self, $ctx ) = @_;
