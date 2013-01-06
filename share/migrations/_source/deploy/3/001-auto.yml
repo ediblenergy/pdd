@@ -19,6 +19,21 @@ schema:
         - deferrable: 1
           expression: ''
           fields:
+            - auth_credential_id
+            - user_id
+          match_type: ''
+          name: auth_credential_fk_auth_credential_id_user_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - auth_credential_id
+            - user_id
+          reference_table: auth_google
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
             - user_id
           match_type: ''
           name: auth_credential_fk_user_id
@@ -62,6 +77,12 @@ schema:
           size:
             - 0
       indices:
+        - fields:
+            - auth_credential_id
+            - user_id
+          name: auth_credential_idx_auth_credential_id_user_id
+          options: []
+          type: NORMAL
         - fields:
             - user_id
           name: auth_credential_idx_user_id
@@ -332,13 +353,62 @@ translator:
     package: &1 !!perl/hash:pdd::Schema
       class_mappings:
         DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResult: __VERSION
-        pdd::Schema::Result::Auth::Google: Auth::Google
         pdd::Schema::Result::AuthCredential: AuthCredential
+        pdd::Schema::Result::AuthGoogle: AuthGoogle
         pdd::Schema::Result::Blog: Blog
         pdd::Schema::Result::Bookmark: Bookmark
         pdd::Schema::Result::User: User
       source_registrations:
-        Auth::Google: !!perl/hash:DBIx::Class::ResultSource::Table
+        AuthCredential: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            auth_credential_id:
+              data_type: integer
+              is_auto_increment: 1
+            create_date:
+              data_type: timestampz
+              default_value: 0
+              dynamic_default_on_create: get_timestamp
+            user_id:
+              data_type: integer
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - auth_credential_id
+            - user_id
+            - create_date
+          _primaries: &2
+            - auth_credential_id
+          _relationships:
+            auth_google:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+                join_type: LEFT
+              class: pdd::Schema::Result::AuthGoogle
+              cond:
+                foreign.auth_credential_id: self.auth_credential_id
+                foreign.user_id: self.user_id
+              source: pdd::Schema::Result::AuthGoogle
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_id: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: pdd::Schema::Result::User
+              cond:
+                foreign.user_id: self.user_id
+              source: pdd::Schema::Result::User
+          _unique_constraints:
+            primary: *2
+          name: auth_credential
+          result_class: pdd::Schema::Result::AuthCredential
+          resultset_attributes: {}
+          resultset_class: pdd::Schema::ResultSet
+          schema: *1
+          source_name: AuthCredential
+        AuthGoogle: !!perl/hash:DBIx::Class::ResultSource::Table
           _columns:
             auth_credential_id:
               data_type: integer
@@ -356,7 +426,7 @@ translator:
             - user_id
             - create_date
             - email
-          _primaries: &2
+          _primaries: &3
             - auth_credential_id
             - email
           _relationships:
@@ -385,51 +455,13 @@ translator:
           _unique_constraints:
             auth_google_email:
               - email
-            primary: *2
-          name: auth_google
-          result_class: pdd::Schema::Result::Auth::Google
-          resultset_attributes: {}
-          resultset_class: pdd::Schema::ResultSet
-          schema: *1
-          source_name: Auth::Google
-        AuthCredential: !!perl/hash:DBIx::Class::ResultSource::Table
-          _columns:
-            auth_credential_id:
-              data_type: integer
-              is_auto_increment: 1
-            create_date:
-              data_type: timestampz
-              default_value: 0
-              dynamic_default_on_create: get_timestamp
-            user_id:
-              data_type: integer
-          _columns_info_loaded: 0
-          _ordered_columns:
-            - auth_credential_id
-            - user_id
-            - create_date
-          _primaries: &3
-            - auth_credential_id
-          _relationships:
-            user:
-              attrs:
-                accessor: single
-                fk_columns:
-                  user_id: 1
-                is_foreign_key_constraint: 1
-                undef_on_null_fk: 1
-              class: pdd::Schema::Result::User
-              cond:
-                foreign.user_id: self.user_id
-              source: pdd::Schema::Result::User
-          _unique_constraints:
             primary: *3
-          name: auth_credential
-          result_class: pdd::Schema::Result::AuthCredential
+          name: auth_google
+          result_class: pdd::Schema::Result::AuthGoogle
           resultset_attributes: {}
           resultset_class: pdd::Schema::ResultSet
           schema: *1
-          source_name: AuthCredential
+          source_name: AuthGoogle
         Blog: !!perl/hash:DBIx::Class::ResultSource::Table
           _columns:
             blog_id:
@@ -551,7 +583,7 @@ translator:
           schema: *1
           source_name: __VERSION
       storage: !!perl/hash:DBIx::Class::Storage::DBI::SQLite
-        _conn_pid: 17085
+        _conn_pid: 17979
         _connect_info:
           - dbi:SQLite:share/pdd_sqlite.db
           - ''
@@ -574,14 +606,15 @@ translator:
         _in_do_block: 0
         _sql_maker: ~
         _sql_maker_opts: {}
+        debug: 1
         savepoints: []
         schema: *1
         transaction_depth: 0
     sources:
       - AuthCredential
+      - AuthGoogle
       - Bookmark
       - User
-      - Auth::Google
       - Blog
   parser_type: SQL::Translator::Parser::DBIx::Class
   producer_args: {}

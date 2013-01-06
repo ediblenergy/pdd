@@ -6,15 +6,15 @@
       },
       {
          "quantity" : "all",
+         "class" : "AuthGoogle"
+      },
+      {
+         "quantity" : "all",
          "class" : "Bookmark"
       },
       {
          "quantity" : "all",
          "class" : "User"
-      },
-      {
-         "quantity" : "all",
-         "class" : "AuthGoogle"
       },
       {
          "quantity" : "all",

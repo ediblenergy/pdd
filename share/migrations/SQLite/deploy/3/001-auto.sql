@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Sun Jan  6 01:58:31 2013
+-- Created on Sun Jan  6 02:16:53 2013
 -- 
 
 ;
@@ -35,8 +35,10 @@ CREATE TABLE auth_credential (
   auth_credential_id INTEGER PRIMARY KEY NOT NULL,
   user_id integer NOT NULL,
   create_date timestampz NOT NULL DEFAULT '0',
+  FOREIGN KEY (auth_credential_id, user_id) REFERENCES auth_google(auth_credential_id, user_id),
   FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+CREATE INDEX auth_credential_idx_auth_credential_id_user_id ON auth_credential (auth_credential_id, user_id);
 CREATE INDEX auth_credential_idx_user_id ON auth_credential (user_id);
 --
 -- Table: auth_google
