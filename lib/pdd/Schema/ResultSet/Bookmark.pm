@@ -1,6 +1,7 @@
 package pdd::Schema::ResultSet::Bookmark;
 use pdd::Schema::ResultSet;
 use HTML::Entities;
+use Encode;
 my $_encoding = Encode::find_encoding("UTF-8");
 sub encoding { $_encoding };
 
