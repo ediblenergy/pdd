@@ -1,7 +1,13 @@
 catalyst:
     encoding: UTF-8
-catalyst:
+    app_name: pdd
     Model::pdd:
         connect_info:
             dsn: __VAR({db}{dsn})__
             AutoCommit: 1
+    Plugin::Cache:
+        backend:
+            namespace: "__VAR({catalyst}{app_name})__:"
+            class: CHI
+            driver: Redis
+            server: 127.0.0.1:6379
