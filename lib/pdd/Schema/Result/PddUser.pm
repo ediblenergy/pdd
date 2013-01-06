@@ -1,4 +1,4 @@
-package pdd::Schema::Result::PDDUser;
+package pdd::Schema::Result::PddUser;
 use pdd::Schema::Result;
 
 table 'pdd_user';

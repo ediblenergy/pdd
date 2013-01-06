@@ -6,11 +6,9 @@ use Test::DBIx::Class
     -schema_class=>'pdd::Schema',
      -traits => [qw( Testpostgresql )],
     -fixture_class => '::Population',
-      qw(Bookmark AuthGoogle AuthCredential PDDUser);
+      qw(Bookmark AuthGoogle AuthCredential PddUser);
 fixtures_ok ['all_tables'];
-
-ok my $user = PDDUser->create(
-    {
+ok my $user = PddUser->create({
         auth_credentials =>
           [ { auth_google => { email => 'test@testo.com' }, } ]
     }

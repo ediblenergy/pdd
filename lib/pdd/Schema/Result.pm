@@ -37,7 +37,7 @@ sub import {
         my $class = shift;
         $class->add_column( pdd_user_id => { data_type => integer });
 
-        $class->belongs_to( pdd_user => '::PDDUser', 'pdd_user_id' );
+        $class->belongs_to( pdd_user => '::PddUser', 'pdd_user_id' );
     }
 
     sub auth_credential_id_fk {

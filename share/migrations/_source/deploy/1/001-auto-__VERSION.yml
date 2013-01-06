@@ -90,7 +90,7 @@ translator:
         pdd::Schema::Result::AuthGoogle: AuthGoogle
         pdd::Schema::Result::Blog: Blog
         pdd::Schema::Result::Bookmark: Bookmark
-        pdd::Schema::Result::PDDUser: PDDUser
+        pdd::Schema::Result::PddUser: PddUser
       source_registrations:
         AuthCredential: !!perl/hash:DBIx::Class::ResultSource::Table
           _columns:
@@ -133,10 +133,10 @@ translator:
                   pdd_user_id: 1
                 is_foreign_key_constraint: 1
                 undef_on_null_fk: 1
-              class: pdd::Schema::Result::PDDUser
+              class: pdd::Schema::Result::PddUser
               cond:
                 foreign.pdd_user_id: self.pdd_user_id
-              source: pdd::Schema::Result::PDDUser
+              source: pdd::Schema::Result::PddUser
           _unique_constraints:
             auth_credential_pdd_user_id_auth_credential_id:
               - pdd_user_id
@@ -193,10 +193,10 @@ translator:
                   pdd_user_id: 1
                 is_foreign_key_constraint: 1
                 undef_on_null_fk: 1
-              class: pdd::Schema::Result::PDDUser
+              class: pdd::Schema::Result::PddUser
               cond:
                 foreign.pdd_user_id: self.pdd_user_id
-              source: pdd::Schema::Result::PDDUser
+              source: pdd::Schema::Result::PddUser
           _unique_constraints:
             auth_google_email:
               - email
@@ -263,7 +263,7 @@ translator:
           resultset_class: pdd::Schema::ResultSet
           schema: *1
           source_name: Bookmark
-        PDDUser: !!perl/hash:DBIx::Class::ResultSource::Table
+        PddUser: !!perl/hash:DBIx::Class::ResultSource::Table
           _columns:
             create_date:
               _ic_dt_method: timestamp_with_timezone
@@ -295,11 +295,11 @@ translator:
           _unique_constraints:
             primary: *6
           name: pdd_user
-          result_class: pdd::Schema::Result::PDDUser
+          result_class: pdd::Schema::Result::PddUser
           resultset_attributes: {}
           resultset_class: pdd::Schema::ResultSet
           schema: *1
-          source_name: PDDUser
+          source_name: PddUser
         __VERSION: !!perl/hash:DBIx::Class::ResultSource::Table
           _columns:
             ddl:
@@ -334,7 +334,7 @@ translator:
           schema: *1
           source_name: __VERSION
       storage: !!perl/hash:DBIx::Class::Storage::DBI::Pg
-        _conn_pid: 19686
+        _conn_pid: 20517
         _connect_info:
           - dbi:Pg:dbname=pdd
           - ''

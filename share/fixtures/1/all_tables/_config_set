@@ -1,0 +1,33 @@
+$VAR1 = {
+          'sets' => [
+                      {
+                        'quantity' => 'all',
+                        'class' => 'AuthCredential'
+                      },
+                      {
+                        'quantity' => 'all',
+                        'class' => 'AuthGoogle'
+                      },
+                      {
+                        'quantity' => 'all',
+                        'class' => 'Bookmark'
+                      },
+                      {
+                        'quantity' => 'all',
+                        'class' => 'PddUser'
+                      },
+                      {
+                        'quantity' => 'all',
+                        'class' => 'Blog'
+                      }
+                    ],
+          'might_have' => {
+                            'fetch' => 0
+                          },
+          'belongs_to' => {
+                            'fetch' => 0
+                          },
+          'has_many' => {
+                          'fetch' => 0
+                        }
+        };
