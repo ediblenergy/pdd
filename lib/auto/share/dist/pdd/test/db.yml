@@ -1,3 +1,5 @@
 db: 
     dsn: dbi:Pg:dbname=pdd_test
     AutoCommit: 1 
+db_copy:
+    dsn:  __VAR({db}{dsn})__

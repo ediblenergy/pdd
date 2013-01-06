@@ -1,2 +1,7 @@
 catalyst:
     encoding: UTF-8
+catalyst:
+    Model::pdd:
+        connect_info:
+            dsn: __VAR({db}{dsn})__
+            AutoCommit: 1

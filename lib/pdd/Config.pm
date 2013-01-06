@@ -1,7 +1,8 @@
 package pdd::Config;
 use strictures 1;
+
 #use Moo;
-#use Data::Rmap qw[ rmap_scalar ];
+use Data::Rmap qw[ rmap_scalar ];
 use Hash::Merge::Simple;
 use File::ShareDir qw[ dist_dir ];
 use IO::All;
@@ -14,6 +15,7 @@ sub _environment {
 }
 
 our %_config;
+
 sub _slurp_dir {
     my $dir = io->dir(shift);
     my @cfgs;
@@ -28,16 +30,36 @@ sub _slurp_dir {
     }
     return \@cfgs;
 }
+
 sub config {
-    my($class,$environment) = @_;
+    my ( $class, $environment ) = @_;
     $environment ||= _environment();
     return $_config{$environment} if $_config{$environment};
     my $dist_dir = dist_dir("pdd");
-    return $_config{$environment} = Hash::Merge::Simple->merge(
-        @{ _slurp_dir(io->catfile($dist_dir,'shared')) },
-        @{ _slurp_dir(io->catfile($dist_dir,$environment)) },
+    my $cfg = $_config{$environment} = Hash::Merge::Simple->merge(
+        @{ _slurp_dir( io->catfile( $dist_dir, 'shared' ) ) },
+        @{ _slurp_dir( io->catfile( $dist_dir, $environment ) ) },
     );
-        
+    return $class->replace_placeholders($cfg);
 }
-
+sub replace_placeholders {
+    my ( $class, $cfg ) = @_;
+    rmap_scalar {
+        my $data = $_;
+        unless ( $data =~ /__VAR\(([^)]+)\)__/ ) {
+            $data;
+        }
+        else {
+            my $str = $1;
+            my $ptr = $cfg;
+            $str =~ s/(^{|}$)//g;
+            my @arr = split( '}{', $str );
+            for (@arr) { 
+                $ptr = $ptr->{$_} || die "invalid string $str"; 
+            }
+            $_ = $ptr;
+        }
+    } $cfg;
+    return $cfg;
+}
 1;
