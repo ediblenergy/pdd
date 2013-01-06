@@ -2,7 +2,19 @@
    "sets" : [
       {
          "quantity" : "all",
+         "class" : "AuthCredential"
+      },
+      {
+         "quantity" : "all",
+         "class" : "AuthGoogle"
+      },
+      {
+         "quantity" : "all",
          "class" : "Bookmark"
+      },
+      {
+         "quantity" : "all",
+         "class" : "PDDUser"
       },
       {
          "quantity" : "all",

@@ -1,6 +1,0 @@
-$HASH1 = {
-           bookmark_id => 25,
-           create_date => '2013-01-04T16:00:05',
-           link        => 'http://blogs.perl.org/users/jeffrey_kegler/2013/01/announcing-marpas-scanless-interface.html',
-           title       => 'Announcing Marpa&#39;s Scanless interface'
-         };

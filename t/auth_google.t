@@ -1,14 +1,15 @@
-use strictures 1;
 use Test::More;
 use pdd::Schema;
 use pdd::Config;
+use strictures 1;
 use Test::DBIx::Class
     -schema_class=>'pdd::Schema',
+     -traits => [qw( Testpostgresql )],
     -fixture_class => '::Population',
-      qw(Bookmark AuthGoogle AuthCredential User);
+      qw(Bookmark AuthGoogle AuthCredential PDDUser);
 fixtures_ok ['all_tables'];
 
-ok my $user = User->create(
+ok my $user = PDDUser->create(
     {
         auth_credentials =>
           [ { auth_google => { email => 'test@testo.com' }, } ]

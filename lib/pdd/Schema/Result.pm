@@ -21,7 +21,7 @@ sub import {
 
     sub integer { 'integer' }
     sub text    { 'text' }
-    sub timestamp { 'timestampz' }
+    sub timestamp { 'timestamp with time zone' }
 
     sub create_date {
         my $class = shift;
@@ -29,15 +29,15 @@ sub import {
             create_date => {
                 data_type     => timestamp,
                 set_on_create => 1,
-                default_value => 0
             }
         );
     }
 
     sub fk_user_id {
         my $class = shift;
-        $class->add_column( user_id => { data_type => integer });
-        $class->belongs_to( user => '::User', 'user_id' );
+        $class->add_column( pdd_user_id => { data_type => integer });
+
+        $class->belongs_to( pdd_user => '::PDDUser', 'pdd_user_id' );
     }
 
     sub auth_credential_id_fk {
@@ -47,7 +47,7 @@ sub import {
             auth_credential => "::AuthCredential",
             {
                 'foreign.auth_credential_id' => 'self.auth_credential_id',
-                'foreign.user_id'            => 'self.user_id'
+                'foreign.pdd_user_id'            => 'self.pdd_user_id'
             }
         );
     }

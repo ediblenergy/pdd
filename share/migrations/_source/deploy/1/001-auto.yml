@@ -2,6 +2,198 @@
 schema:
   procedures: {}
   tables:
+    auth_credential:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - auth_credential_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - pdd_user_id
+            - auth_credential_id
+          match_type: ''
+          name: auth_credential_pdd_user_id_auth_credential_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - pdd_user_id
+          match_type: ''
+          name: auth_credential_fk_pdd_user_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - pdd_user_id
+          reference_table: pdd_user
+          type: FOREIGN KEY
+      fields:
+        auth_credential_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 1
+          name: auth_credential_id
+          order: 1
+          size:
+            - 0
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 3
+          size:
+            - 0
+        pdd_user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: pdd_user_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - pdd_user_id
+          name: auth_credential_idx_pdd_user_id
+          options: []
+          type: NORMAL
+      name: auth_credential
+      options: []
+      order: 4
+    auth_google:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - auth_credential_id
+            - email
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - email
+          match_type: ''
+          name: auth_google_email
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - auth_credential_id
+            - pdd_user_id
+          match_type: ''
+          name: auth_google_fk_auth_credential_id_pdd_user_id
+          on_delete: CASCADE
+          on_update: ''
+          options: []
+          reference_fields:
+            - auth_credential_id
+            - pdd_user_id
+          reference_table: auth_credential
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - pdd_user_id
+          match_type: ''
+          name: auth_google_fk_pdd_user_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - pdd_user_id
+          reference_table: pdd_user
+          type: FOREIGN KEY
+      fields:
+        auth_credential_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: auth_credential_id
+          order: 1
+          size:
+            - 0
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 3
+          size:
+            - 0
+        email:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 1
+          name: email
+          order: 4
+          size:
+            - 0
+        pdd_user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: pdd_user_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - auth_credential_id
+            - pdd_user_id
+          name: auth_google_idx_auth_credential_id_pdd_user_id
+          options: []
+          type: NORMAL
+        - fields:
+            - pdd_user_id
+          name: auth_google_idx_pdd_user_id
+          options: []
+          type: NORMAL
+      name: auth_google
+      options: []
+      order: 5
     blog:
       constraints:
         - deferrable: 1
@@ -46,6 +238,18 @@ schema:
           reference_fields: []
           reference_table: ''
           type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - link
+          match_type: ''
+          name: bookmark_link
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
       fields:
         bookmark_id:
           data_type: integer
@@ -58,10 +262,80 @@ schema:
           order: 1
           size:
             - 0
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 4
+          size:
+            - 0
+        link:
+          data_type: text
+          default_value: ''
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: link
+          order: 2
+          size:
+            - 0
+        title:
+          data_type: text
+          default_value: ''
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: title
+          order: 3
+          size:
+            - 0
       indices: []
       name: bookmark
       options: []
       order: 2
+    pdd_user:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - pdd_user_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 2
+          size:
+            - 0
+        pdd_user_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: pdd_user_id
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: pdd_user
+      options: []
+      order: 3
   triggers: {}
   views: {}
 translator:
@@ -74,9 +348,127 @@ translator:
     package: &1 !!perl/hash:pdd::Schema
       class_mappings:
         DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResult: __VERSION
+        pdd::Schema::Result::AuthCredential: AuthCredential
+        pdd::Schema::Result::AuthGoogle: AuthGoogle
         pdd::Schema::Result::Blog: Blog
         pdd::Schema::Result::Bookmark: Bookmark
+        pdd::Schema::Result::PDDUser: PDDUser
       source_registrations:
+        AuthCredential: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            auth_credential_id:
+              data_type: integer
+              is_auto_increment: 1
+            create_date:
+              _ic_dt_method: timestamp_with_timezone
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp with time zone
+              dynamic_default_on_create: get_timestamp
+            pdd_user_id:
+              data_type: integer
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - auth_credential_id
+            - pdd_user_id
+            - create_date
+          _primaries: &2
+            - auth_credential_id
+          _relationships:
+            auth_google:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+                is_foreign_key_constraint: 0
+                join_type: LEFT
+              class: pdd::Schema::Result::AuthGoogle
+              cond:
+                foreign.auth_credential_id: self.auth_credential_id
+                foreign.pdd_user_id: self.pdd_user_id
+              source: pdd::Schema::Result::AuthGoogle
+            pdd_user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  pdd_user_id: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: pdd::Schema::Result::PDDUser
+              cond:
+                foreign.pdd_user_id: self.pdd_user_id
+              source: pdd::Schema::Result::PDDUser
+          _unique_constraints:
+            auth_credential_pdd_user_id_auth_credential_id:
+              - pdd_user_id
+              - auth_credential_id
+            primary: *2
+          name: auth_credential
+          result_class: pdd::Schema::Result::AuthCredential
+          resultset_attributes: {}
+          resultset_class: pdd::Schema::ResultSet
+          schema: *1
+          source_name: AuthCredential
+        AuthGoogle: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            auth_credential_id:
+              data_type: integer
+            create_date:
+              _ic_dt_method: timestamp_with_timezone
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp with time zone
+              dynamic_default_on_create: get_timestamp
+            email:
+              data_type: text
+            pdd_user_id:
+              data_type: integer
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - auth_credential_id
+            - pdd_user_id
+            - create_date
+            - email
+          _primaries: &3
+            - auth_credential_id
+            - email
+          _relationships:
+            auth_credential:
+              attrs:
+                accessor: single
+                fk_columns:
+                  auth_credential_id: 1
+                  pdd_user_id: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: pdd::Schema::Result::AuthCredential
+              cond:
+                foreign.auth_credential_id: self.auth_credential_id
+                foreign.pdd_user_id: self.pdd_user_id
+              source: pdd::Schema::Result::AuthCredential
+            pdd_user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  pdd_user_id: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: pdd::Schema::Result::PDDUser
+              cond:
+                foreign.pdd_user_id: self.pdd_user_id
+              source: pdd::Schema::Result::PDDUser
+          _unique_constraints:
+            auth_google_email:
+              - email
+            primary: *3
+          name: auth_google
+          result_class: pdd::Schema::Result::AuthGoogle
+          resultset_attributes: {}
+          resultset_class: pdd::Schema::ResultSet
+          schema: *1
+          source_name: AuthGoogle
         Blog: !!perl/hash:DBIx::Class::ResultSource::Table
           _columns:
             blog_id:
@@ -85,15 +477,15 @@ translator:
           _columns_info_loaded: 0
           _ordered_columns:
             - blog_id
-          _primaries: &2
+          _primaries: &4
             - blog_id
           _relationships: {}
           _unique_constraints:
-            primary: *2
+            primary: *4
           name: blog
           result_class: pdd::Schema::Result::Blog
           resultset_attributes: {}
-          resultset_class: DBIx::Class::ResultSet
+          resultset_class: pdd::Schema::ResultSet
           schema: *1
           source_name: Blog
         Bookmark: !!perl/hash:DBIx::Class::ResultSource::Table
@@ -101,20 +493,75 @@ translator:
             bookmark_id:
               data_type: integer
               is_auto_increment: 1
+            create_date:
+              _ic_dt_method: timestamp_with_timezone
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp with time zone
+              dynamic_default_on_create: get_timestamp
+            link:
+              data_type: text
+              default_value: ''
+            title:
+              data_type: text
+              default_value: ''
           _columns_info_loaded: 0
           _ordered_columns:
             - bookmark_id
-          _primaries: &3
+            - link
+            - title
+            - create_date
+          _primaries: &5
             - bookmark_id
           _relationships: {}
           _unique_constraints:
-            primary: *3
+            bookmark_link:
+              - link
+            primary: *5
           name: bookmark
           result_class: pdd::Schema::Result::Bookmark
           resultset_attributes: {}
-          resultset_class: DBIx::Class::ResultSet
+          resultset_class: pdd::Schema::ResultSet
           schema: *1
           source_name: Bookmark
+        PDDUser: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            create_date:
+              _ic_dt_method: timestamp_with_timezone
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp with time zone
+              dynamic_default_on_create: get_timestamp
+            pdd_user_id:
+              data_type: integer
+              is_auto_increment: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - pdd_user_id
+            - create_date
+          _primaries: &6
+            - pdd_user_id
+          _relationships:
+            auth_credentials:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: pdd::Schema::Result::AuthCredential
+              cond:
+                foreign.pdd_user_id: self.pdd_user_id
+              source: pdd::Schema::Result::AuthCredential
+          _unique_constraints:
+            primary: *6
+          name: pdd_user
+          result_class: pdd::Schema::Result::PDDUser
+          resultset_attributes: {}
+          resultset_class: pdd::Schema::ResultSet
+          schema: *1
+          source_name: PDDUser
         __VERSION: !!perl/hash:DBIx::Class::ResultSource::Table
           _columns:
             ddl:
@@ -135,23 +582,23 @@ translator:
             - version
             - ddl
             - upgrade_sql
-          _primaries: &4
+          _primaries: &7
             - id
           _relationships: {}
           _unique_constraints:
             dbix_class_deploymenthandler_versions_version:
               - version
-            primary: *4
+            primary: *7
           name: dbix_class_deploymenthandler_versions
           result_class: DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResult
           resultset_attributes: {}
           resultset_class: DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResultSet
           schema: *1
           source_name: __VERSION
-      storage: !!perl/hash:DBIx::Class::Storage::DBI::SQLite
-        _conn_pid: 14500
+      storage: !!perl/hash:DBIx::Class::Storage::DBI::Pg
+        _conn_pid: 19686
         _connect_info:
-          - dbi:SQLite:pdd_sqlite.db
+          - dbi:Pg:dbname=pdd
           - ''
           - ''
         _dbh: !!perl/hash:DBI::db {}
@@ -159,24 +606,28 @@ translator:
         _dbh_details: {}
         _dbh_gen: 0
         _dbi_connect_info:
-          - dbi:SQLite:pdd_sqlite.db
+          - dbi:Pg:dbname=pdd
           - ''
           - ''
-          - &5
+          - &8
             AutoCommit: 1
             PrintError: 0
             RaiseError: 1
             ShowErrorStatement: 1
-        _dbic_connect_attributes: *5
+        _dbic_connect_attributes: *8
         _driver_determined: 1
         _in_do_block: 0
         _sql_maker: ~
         _sql_maker_opts: {}
+        debug: 1
         savepoints: []
         schema: *1
         transaction_depth: 0
     sources:
+      - AuthCredential
+      - AuthGoogle
       - Bookmark
+      - PDDUser
       - Blog
   parser_type: SQL::Translator::Parser::DBIx::Class
   producer_args: {}
