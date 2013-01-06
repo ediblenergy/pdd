@@ -43,7 +43,13 @@ sub import {
     sub auth_credential_id_fk {
         my $class = shift;
         $class->add_column( auth_credential_id => { data_type => integer } );
-        $class->belongs_to( auth_credential => "::AuthCredential", 'auth_credential_id' );
+        $class->belongs_to(
+            auth_credential => "::AuthCredential",
+            {
+                'foreign.auth_credential_id' => 'self.auth_credential_id',
+                'foreign.user_id'            => 'self.user_id'
+            }
+        );
     }
 
     sub email {
