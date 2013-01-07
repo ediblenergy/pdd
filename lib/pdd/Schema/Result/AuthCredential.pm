@@ -6,7 +6,7 @@ table 'auth_credential';
 primary_column auth_credential_id =>
   { is_auto_increment => 1, data_type => integer };
 
-fk_user_id; 
+fk_pdd_user_id; 
 create_date;
 
 unique_constraint [qw{ pdd_user_id auth_credential_id }];

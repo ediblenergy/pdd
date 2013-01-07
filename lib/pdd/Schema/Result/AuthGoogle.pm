@@ -6,7 +6,7 @@ table 'auth_google';
 
 auth_credential_id_fk;
 
-fk_user_id;
+fk_pdd_user_id;
 
 create_date;
 

@@ -33,7 +33,7 @@ sub import {
         );
     }
 
-    sub fk_user_id {
+    sub fk_pdd_user_id {
         my $class = shift;
         $class->add_column( pdd_user_id => { data_type => integer });
 
@@ -63,7 +63,7 @@ sub import {
         [
             qw(
               create_date
-              fk_user_id
+              fk_pdd_user_id
               default_result_namespace
               auth_credential_id_fk
               email
