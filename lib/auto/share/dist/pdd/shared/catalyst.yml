@@ -5,7 +5,14 @@ catalyst:
         connect_info: __VAR({db})__
     Plugin::Cache:
         backend:
-            namespace: "__VAR({catalyst}{app_name})__"
+            namespace: __VAR({catalyst}{app_name})__
             class: CHI
             driver: Redis
             server: 127.0.0.1:6379
+    Plugin::Authentication:
+        default:
+            credential: 
+                class: NoPassword
+            store:
+                class: DBIx::Class
+                user_model: pdd::PddUser

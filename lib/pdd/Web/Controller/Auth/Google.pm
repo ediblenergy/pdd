@@ -60,7 +60,7 @@ method cb ( $ctx ) {
           );
         $user_id = $user->pdd_user_id;
     }
-    $ctx->session->{user_id} = $user_id;
+    $ctx->authenticate( { pdd_user_id => $user_id } );
 }
 
 method _invalid_login ( $ctx ) {

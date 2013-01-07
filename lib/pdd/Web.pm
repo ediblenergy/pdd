@@ -10,6 +10,7 @@ use Catalyst qw[
     Session
     Session::State::Cookie
     Session::Store::Cache
+    Authentication
 ];
 
 extends 'Catalyst';
