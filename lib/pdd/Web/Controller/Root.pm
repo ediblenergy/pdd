@@ -31,8 +31,7 @@ $class->config(
     }
 );
 
-## Please see file perltidy.ERR
-method root( $ctx, @args ) {
+method root( $ctx ) {
     $ctx->stash(
         template     => "html/page/home.html",
         current_view => 'HTML',

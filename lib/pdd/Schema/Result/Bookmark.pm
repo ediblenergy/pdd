@@ -15,6 +15,8 @@ fk_pdd_user_id;
 
 create_date;
 
-belongs_to source => "::BookmarkSource", 'bookmark_source_id';
+belongs_to
+  bookmark_source => "::BookmarkSource",
+  'bookmark_source_id';
 
 1;
