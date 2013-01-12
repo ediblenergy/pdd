@@ -14,7 +14,7 @@ my $local_path = "$FindBin::Bin/../share/starred.xml";
 
 my $config = pdd::Config->config;
 
-my $schema = pdd::Schema->connect( $config->{db}{dsn} );
+my $schema = pdd::Schema->connect( $config->{db} );
 
 my $rs = $schema->resultset("Bookmark");
 
