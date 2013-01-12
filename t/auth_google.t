@@ -1,7 +1,7 @@
+use strictures 1;
 use Test::More;
 use pdd::Schema;
 use pdd::Config;
-use strictures 1;
 use Test::DBIx::Class
     -schema_class=>'pdd::Schema',
      -traits => [qw( Testpostgresql )],

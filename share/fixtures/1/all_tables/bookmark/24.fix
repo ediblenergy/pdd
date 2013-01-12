@@ -2,5 +2,6 @@ $HASH1 = {
            bookmark_id => 24,
            create_date => '2013-01-04 16:00:05+00',
            link        => 'http://feedproxy.google.com/~r/DataMining/~3/YhCddLGEDXg/googles-year-in-local-search.html',
+           pdd_user_id => 1,
            title       => 'Google&#39;s Year in Local Search'
          };

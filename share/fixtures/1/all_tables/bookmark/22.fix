@@ -2,5 +2,6 @@ $HASH1 = {
            bookmark_id => 22,
            create_date => '2013-01-02 16:00:03+00',
            link        => 'http://11011110.livejournal.com/260838.html',
+           pdd_user_id => 1,
            title       => 'Top ten algorithms preprints of 2012'
          };

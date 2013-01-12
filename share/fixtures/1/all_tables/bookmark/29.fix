@@ -2,5 +2,6 @@ $HASH1 = {
            bookmark_id => 29,
            create_date => '2013-01-05 04:05:04+00',
            link        => 'http://ask.metafilter.com/232464/Real-Life-Royston-Vasey',
+           pdd_user_id => 1,
            title       => 'Ask MeFi: Real Life Royston Vasey?'
          };

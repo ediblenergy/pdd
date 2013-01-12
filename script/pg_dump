@@ -1,0 +1,11 @@
+#!/bin/bash
+schema=pdd_prod
+db=pdd
+pg_dump \
+    --schema=$schema \
+    --no-owner \
+    --schema-only \
+    --verbose \
+    --no-privileges \
+    $db
+#    --quote-all-identifiers \

@@ -1,0 +1,7 @@
+$HASH1 = {
+           auth_credential_id
+                       => 1,
+           create_date => '2013-01-07 00:07:59+00',
+           email       => 'test@test.com',
+           pdd_user_id => 1
+         };

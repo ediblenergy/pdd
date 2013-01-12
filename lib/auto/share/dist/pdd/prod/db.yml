@@ -3,3 +3,4 @@ db:
     AutoCommit: 1 
     on_connect_do:
         - set search_path = pdd_prod,public
+    db_schema: pdd_prod

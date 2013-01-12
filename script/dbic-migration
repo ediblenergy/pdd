@@ -9,4 +9,5 @@ my $cfg = pdd::Config->config();
     dbic_connect_attrs => { on_connect_do => $cfg->{db}{on_connect_do}, },
     dsn                => $cfg->{db}{dsn},
     schema_class       => "pdd::Schema",
+    extra_schemaloader_args => { db_schema => $cfg->{db}{db_schema} }
 );
