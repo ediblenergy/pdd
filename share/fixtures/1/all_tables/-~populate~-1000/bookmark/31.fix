@@ -1,6 +1,0 @@
-$HASH1 = {
-           bookmark_id => 31,
-           create_date => '2013-01-05 16:05:04+00',
-           link        => 'http://blogs.perl.org/users/ovid/2013/01/how-to-write-a-test-description.html',
-           title       => 'How to write a test description'
-         };

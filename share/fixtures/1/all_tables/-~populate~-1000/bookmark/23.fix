@@ -1,6 +1,0 @@
-$HASH1 = {
-           bookmark_id => 23,
-           create_date => '2013-01-02 16:00:03+00',
-           link        => 'http://thenextweb.com/insider/2013/01/02/vehicle-rental-giant-avis-acquires-car-sharing-company-zipcar-for-500-million/',
-           title       => 'Avis acquires car sharing company Zipcar for $500 million'
-         };

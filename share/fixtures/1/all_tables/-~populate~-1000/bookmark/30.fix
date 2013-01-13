@@ -1,6 +1,0 @@
-$HASH1 = {
-           bookmark_id => 30,
-           create_date => '2013-01-05 04:05:04+00',
-           link        => 'http://blogs.perl.org/users/matthew_horsfall/2013/01/announcing-netrndc---communicate-with-bind-through-perl.html',
-           title       => 'Announcing Net::RNDC - Communicate with BIND through Perl'
-         };

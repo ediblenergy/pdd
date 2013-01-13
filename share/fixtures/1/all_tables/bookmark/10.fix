@@ -1,7 +1,0 @@
-$HASH1 = {
-           bookmark_id => 10,
-           create_date => '2012-12-31 21:48:33+00',
-           link        => 'http://perladvent.org/2012/2012-12-21.html',
-           pdd_user_id => 1,
-           title       => 'Set-based DBIx::Class'
-         };

@@ -1,6 +1,0 @@
-$HASH1 = {
-           bookmark_id => 4,
-           create_date => '2012-12-31 21:48:33+00',
-           link        => 'http://www.metafilter.com/123127/its-more-like-a-waiting-room-that-hopefully-doesnt-suck',
-           title       => 'MeFi: ...it\'s more like a waiting room that hopefully doesn\'t suck.'
-         };
