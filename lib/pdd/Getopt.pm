@@ -3,6 +3,7 @@ use strictures 1;
 use Getopt::Long::Descriptive;
 use Data::Dumper::Concise;
 sub getopt {
+    my $class = shift;
     local @ARGV = @_;
     my ( $opt, $usage ) = describe_options(
         "$0 %o <some-arg>",

@@ -7,8 +7,6 @@ use Function::Parameters ();
 use Data::Printer;
 use MooseX::AttributeShortcuts;
 use URI;
-use Log::Contextual (); #qw[ :log :dlog ];
-use Log::Dispatchouli ();
 
 sub import {
     my ($class,@args) = @_;

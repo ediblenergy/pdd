@@ -2,23 +2,21 @@
 use strictures 1;
 use Getopt::Long::Descriptive;
 use Plack::Runner;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use pdd::Getopt;
+use pdd::Log qw[ :log :dlog ];
 
 sub getopt {
     local @ARGV = @_;
-    my ( $opt, $usage ) = describe_options(
-        'my-program %o <some-arg>',
-        [
-            'environment=s', "environment",
-            { default => $ENV{PDD_ENVIRONMENT} || "dev" }
-        ],
-        { getopt_conf => [qw/ pass_through /] },
-    );
+    my $opt = pdd::Getopt->getopt(@ARGV);
     return $ENV{PDD_ENVIRONMENT} = $opt->environment;
 }
 sub main {
     getopt(@ARGV);
     my $runner = Plack::Runner->new;
     $runner->parse_options(@ARGV);
+    log_info { "starting pdd with $_[0] environment..." } $ENV{PDD_ENVIRONMENT};
     $runner->run;
 }
 exit main();

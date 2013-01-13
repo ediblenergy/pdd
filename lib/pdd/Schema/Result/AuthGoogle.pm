@@ -4,7 +4,7 @@ use pdd::Schema::Result;
 
 table 'auth_google';
 
-auth_credential_id_fk;
+fk_auth_credential_id;
 
 fk_pdd_user_id;
 

@@ -5,8 +5,7 @@ use pdd::Config;
 use Test::DBIx::Class
     -schema_class=>'pdd::Schema',
      -traits => [qw( Testpostgresql )],
-    -fixture_class => '::Population',
-      qw(Bookmark AuthGoogle AuthCredential PddUser);
+      qw(Bookmark AuthGoogle AuthCredential PddUser BookmarkSourceType );
 
 fixtures_ok ['all_tables'];
 ok my $user = PddUser->create({
@@ -15,4 +14,5 @@ ok my $user = PddUser->create({
     }
   ), "create a user with the associated auth credentials and auth_google rows";
 done_testing;
+
 

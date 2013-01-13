@@ -2,77 +2,17 @@ package pdd::Schema::Result;
 use strictures 1;
 use Import::Into;
 use DBIx::Class::Candy ();
-
+use boolean ();
 sub import {
     my $target = caller;
     DBIx::Class::Candy->import::into( $target,
-        '-components' => [qw( 
+        -components => [qw( 
             TimeStamp 
             +pdd::Schema::Util 
             Helper::Row::RelationshipDWIM
-        )] );
+        )]);
     strictures->import::into( $target, 1 );
+    boolean->import::into($target);
 }
 
-{
-    package pdd::Schema::Util;
-    use strictures 1;
-    use DBIx::Class::Candy::Exports;
-
-    sub integer { 'integer' }
-    sub text    { 'text' }
-    sub timestamp { 'timestamp with time zone' }
-
-    sub create_date {
-        my $class = shift;
-        $class->add_column(
-            create_date => {
-                data_type     => timestamp,
-                set_on_create => 1,
-            }
-        );
-    }
-
-    sub fk_pdd_user_id {
-        my $class = shift;
-        $class->add_column( pdd_user_id => { data_type => integer });
-
-        $class->belongs_to( pdd_user => '::PddUser', 'pdd_user_id' );
-    }
-
-    sub auth_credential_id_fk {
-        my $class = shift;
-        $class->add_column( auth_credential_id => { data_type => integer } );
-        $class->belongs_to(
-            auth_credential => "::AuthCredential",
-            {
-                'foreign.auth_credential_id' => 'self.auth_credential_id',
-                'foreign.pdd_user_id'            => 'self.pdd_user_id'
-            }
-        );
-    }
-
-    sub email {
-        my $class = shift;
-        $class->add_column( email => { data_type => text } );
-    }
-
-    sub default_result_namespace { 'pdd::Schema::Result' }
-    # so you don't depend on ::Candy
-    export_methods(
-        [
-            qw(
-              create_date
-              fk_pdd_user_id
-              default_result_namespace
-              auth_credential_id_fk
-              email
-
-              integer
-              text
-              timestamp
-              )
-        ]
-    );
-}
 1;
