@@ -8,4 +8,6 @@ primary_column user_id => { data_type => integer, is_auto_increment => 1 };
 
 create_date;
 
+has_many service_credentials => "::ServiceCredential", 'user_id';
+
 1;

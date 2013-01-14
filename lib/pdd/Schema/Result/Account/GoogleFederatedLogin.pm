@@ -1,18 +1,33 @@
-package pdd::Schema::Result::AuthGoogle;
+package pdd::Schema::Result::Account::GoogleFederatedLogin;
 
 use pdd::Schema::Result;
 
-table 'auth_google';
+table 'account_google_federated_login';
 
-fk_auth_credential_id;
+primary_column service_credential_id => { data_type => integer };
 
-fk_pdd_user_id;
+text_column 'email';
 
+integer_column 'user_id';
 create_date;
 
-email;
+unique_constraint(agfl_email_idx => [qw{ email }]);
 
-primary_key qw[ auth_credential_id email ];
+belongs_to
+  service_credential => "::ServiceCredential",
+  {
+    'foreign.service_credential_id' => 'self.service_credential_id',
+    'foreign.user_id'               => 'self.user_id',
+  },
+  {
+    add_fk_index => false,
+  };
 
-unique_constraint([qw{ email }]);
+sub sqlt_deploy_callback {
+    my ( $source_instance, $sqlt_table ) = @_;
+    $sqlt_table->add_index(
+        name   => 'agfl_service_credential_id_user_id_idx',
+        fields => [qw/ service_credential_id user_id /]
+    );
+}
 1;

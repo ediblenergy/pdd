@@ -11,12 +11,10 @@ $class->load_classes(
               UserLink
               ServiceCredential
               Service
+              Account::GoogleFederatedLogin
               /
         ]
     }
 );
-#$class->load_namespaces(
-#    default_resultset_class => '+pdd::Schema::ResultSet'
-#);
 
 1;

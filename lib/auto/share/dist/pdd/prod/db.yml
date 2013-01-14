@@ -1,6 +1,8 @@
 db: 
     dsn: dbi:Pg:dbname=pdd
     AutoCommit: 1 
+    pg_enable_utf8: 1
+    db_schema: pdd_prod
+    quote_names: 1
     on_connect_do:
         - set search_path = pdd_prod,public
-    db_schema: pdd_prod
