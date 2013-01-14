@@ -6,6 +6,10 @@ sub integer   { 'integer' }
 sub text      { 'text' }
 sub timestamp { 'timestamp with time zone' }
 
+sub serial_integer { +{ is_auto_increment => 1, data_type => integer } }
+
+sub text_column { +{ data_type => text } }
+
 sub create_date {
     my $class = shift;
     $class->add_column(
@@ -53,7 +57,7 @@ sub email {
 
 sub integer_column {
     my $class = shift;
-    $class->add_column( shift => { data_type => integer } )
+    $class->add_column( shift() => { data_type => integer } )
 }
 
 sub fk_service_type_id {
@@ -73,14 +77,11 @@ export_methods(
           create_date
           update_date
           
-          fk_pdd_user_id
-          fk_auth_credential_id
-          fk_service_type_id
-
           default_result_namespace
-          email
 
           integer_column
+          text_column
+          serial_integer
 
           integer
           text
