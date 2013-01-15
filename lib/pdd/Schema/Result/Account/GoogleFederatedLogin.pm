@@ -13,15 +13,14 @@ create_date;
 
 unique_constraint(agfl_email_idx => [qw{ email }]);
 
-belongs_to
-  service_credential => "::ServiceCredential",
+belongs_to service_credential => "::ServiceCredential",
   {
     'foreign.service_credential_id' => 'self.service_credential_id',
     'foreign.user_id'               => 'self.user_id',
   },
-  {
-    add_fk_index => false,
-  };
+  { add_fk_index => false, };
+
+belongs_to user => "::User",'user_id';
 
 sub sqlt_deploy_callback {
     my ( $source_instance, $sqlt_table ) = @_;

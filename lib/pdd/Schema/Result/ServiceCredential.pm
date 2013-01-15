@@ -16,7 +16,7 @@ belongs_to user => "::User", "user_id";
 create_date;
 
 unique_constraint(
-    sc_service_credential_id_user_id => [qw( service_credential_id user_id )] );
+    sc_service_credential_id_user_id_idx => [qw( service_credential_id user_id )] );
 
 might_have
   account_google_federated_login => "::Account::GoogleFederatedLogin",
