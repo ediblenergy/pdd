@@ -27,4 +27,13 @@ might_have
     is_foreign_key_constraint => 0,
   };
 
+might_have
+  account_google_reader => "::Account::GoogleReader",
+  {
+    'foreign.service_credential_id' => 'self.service_credential_id',
+    'foreign.user_id'               => 'self.user_id'
+  },{
+    is_foreign_key_constraint => 0,
+  };
+
 1;

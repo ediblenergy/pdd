@@ -8,5 +8,5 @@ sub import {
     parent->import::into( $target, 'DBIx::Class::ResultSet' );
     $target->load_components(qw{Helper::ResultSet::ResultClassDWIM});
 }
-import();
+__PACKAGE__->import();
 1;
