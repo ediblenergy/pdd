@@ -1,0 +1,20 @@
+catalyst:
+    Controller::Root:
+        namespace: ""
+        action: 
+            '*' :
+                Does:
+                    - +CatalystX::ActionRole::StashReturnInData
+            root:
+                Does:
+                    - AuthRequired
+                Chained: /
+                PathPart: ""
+                Args: 0
+            end:
+                Action: 1
+            wc:
+                Local: 1
+                Path: /wc
+            login:
+                Local: 1

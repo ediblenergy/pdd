@@ -10,43 +10,19 @@ has encoding => (
 
 my $class = __PACKAGE__;
 
-$class->config( 
-    namespace => "",
-    action_roles => [qw( 
-        +CatalystX::ActionRole::StashReturnInData
-    )],
-    action => {
-        root => {
-            Chained => "/",
-            PathPart => "",
-            Args => 0,
-        },
-        end => {
-            Action => 1,
-        },
-        wc => {
-            Local => 1,
-            Path => "/wc"
-        },
-        login => {
-            Local => 1,
-        },
-
-    }
-);
 
 
 method root( $ctx ) {
-    if( $ctx->user_exists ) {
-        log_info { "user login email $_[0]" } $ctx->user->get('email');
-    }
-    $ctx->stash(
-        template     => "html/page/home.html",
-        current_view => 'HTML',
-    );
-      return {
-        entries => $ctx->model("pdd")->resultset("Bookmark")->latest_bookarks
-      };
+#    if( $ctx->user_exists ) {
+#        log_info { "user login email $_[0]" } $ctx->user->get('email');
+#    }
+#    $ctx->stash(
+#        template     => "html/page/home.html",
+#        current_view => 'HTML',
+#    );
+#      return {
+#        entries => $ctx->model("pdd")->resultset("Bookmark")->latest_bookarks
+#      };
 
 }
 
