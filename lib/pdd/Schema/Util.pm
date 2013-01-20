@@ -27,11 +27,11 @@ sub meta_column {
         meta => {
             inflate => sub {
                 my ( $raw_value_from_db, $result_object ) = @_;
-                return json->encode( $raw_value_from_db );
+                return json->decode( $raw_value_from_db );
             },
             deflate => sub {
                 my ( $inflated_value_from_user, $result_object ) = @_;
-                return json->decode( $inflated_value_from_user );
+                return json->encode( $inflated_value_from_user );
             },
         }
     );

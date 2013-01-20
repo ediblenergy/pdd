@@ -29,43 +29,18 @@ method receive_access_token( $ctx, $access_token ) {
         params => { access_token => $access_token->access_token },
         url    => "userinfo"
     );
-    Dlog_debug { "userinfo: $_" } $ret;
+    Dlog_debug { "userinfo: $_" } $userinfo;
     my $email = $userinfo->{email};
 
-    my $user_id = sub {
-        my $credential =
-          $ctx->model("pdd::AuthGoogle")->find( { email => $email } );
-        return $credential->pdd_user_id if $credential;
-        return $ctx->model("pdd::pddUser")
-          ->create(
-            { auth_credentials => [ { auth_google => { email => $email } } ] } )
-          ->id;
-      }->();
+    my $user =
+      $ctx->model("pdd::User")
+      ->find_or_create_account_google_federated_login(
+        { email => $email, meta => $userinfo } );
+    
+    $ctx->authenticate( { user_id => $user->user_id } );
+    $ctx->res->redirect('/');
+    return $ctx->detach;
 }
-
-#
-#    Dlog_debug { "req params: $_" } $params;
-#    my $email = $params->{email};
-#    my $credential =
-#      $ctx->model("pdd::AuthGoogle")->find( { email => $email } );
-#    my $user_id;
-#    if ($credential) {
-#        $user_id = $credential->pdd_user_id;
-#    }
-#    else {
-#        my $user =
-#          $ctx->model("pdd::pddUser")
-#          ->create(
-#            { auth_credentials => [ { auth_google => { email => $email } } ] }
-#          );
-#        $user_id = $user->pdd_user_id;
-#    }
-#    $ctx->authenticate( { pdd_user_id => $user_id } );
-#}
-#
-#method _invalid_login ( $ctx ) {
-#    die "invalid login";
-#}
 
 $class->meta->make_immutable;
 1;

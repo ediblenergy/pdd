@@ -10,4 +10,5 @@ create_date;
 
 has_many service_credentials => "::ServiceCredential", 'user_id';
 
+resultset_class("pdd::Schema::ResultSet::User");
 1;

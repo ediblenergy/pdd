@@ -37,6 +37,9 @@ $class->config(
 
 
 method root( $ctx ) {
+    if( $ctx->user_exists ) {
+        log_info { "user login email $_[0]" } $ctx->user->get('email');
+    }
     $ctx->stash(
         template     => "html/page/home.html",
         current_view => 'HTML',
