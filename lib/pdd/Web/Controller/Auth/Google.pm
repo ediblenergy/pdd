@@ -37,8 +37,7 @@ method receive_access_token( $ctx, $access_token ) {
         email => $email,
         meta  => $userinfo
       );
-    
-    $ctx->authenticate( { user_id => $user->user_id } );
+    $ctx->authenticate( { email => $email },"google_federated_login" );
     $ctx->res->redirect('/');
     return $ctx->detach;
 }
