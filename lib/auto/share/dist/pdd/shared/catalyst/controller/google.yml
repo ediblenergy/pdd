@@ -1,0 +1,20 @@
+catalyst:
+    Controller::Auth::Google:
+        action:
+            login:
+                Local: 1
+                Args: 0
+            cb:
+                Local: 1
+                Args:  0
+    Controller::Auth::GoogleReader:
+        action:
+            "*":
+                Does:
+                    - AuthRequired
+            login:
+                Local: 1
+                Args: 0
+            cb:
+                Local: 1
+                Args:  0

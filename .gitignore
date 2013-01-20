@@ -4,3 +4,4 @@ Makefile
 MANIFEST*
 MYMETA*
 *.xml
+google_oauth2.json
