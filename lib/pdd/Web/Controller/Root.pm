@@ -27,9 +27,14 @@ $class->config(
         wc => {
             Local => 1,
             Path => "/wc"
-        }
+        },
+        login => {
+            Local => 1,
+        },
+
     }
 );
+
 
 method root( $ctx ) {
     $ctx->stash(
@@ -40,10 +45,20 @@ method root( $ctx ) {
         entries => $ctx->model("pdd")->resultset("Bookmark")->latest_bookarks
       };
 
-  }
+}
 
-sub end {
-    my ( $self, $ctx ) = @_;
+method login( $ctx ) {
+    log_info { "login" };
+    $ctx->res->redirect(
+        $ctx->uri_for_action(
+            $ctx->controller("Auth::Google")->action_for('login'),
+            $ctx->req->params
+        )
+    );
+    return $ctx->detach;
+}
+
+method end( $ctx ) {
     if ( my $v = $ctx->stash->{current_view} ) {
         $ctx->forward( $ctx->view($v) );
     }
