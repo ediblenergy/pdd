@@ -33,9 +33,10 @@ method receive_access_token( $ctx, $access_token ) {
     my $email = $userinfo->{email};
 
     my $user =
-      $ctx->model("pdd::User")
-      ->find_or_create_account_google_federated_login(
-        { email => $email, meta => $userinfo } );
+      $ctx->model("pdd::User")->find_or_create_account_google_federated_login(
+        email => $email,
+        meta  => $userinfo
+      );
     
     $ctx->authenticate( { user_id => $user->user_id } );
     $ctx->res->redirect('/');

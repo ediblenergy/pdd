@@ -16,4 +16,4 @@ catalyst:
                 class: NoPassword
             store:
                 class: DBIx::Class
-                user_model: pdd::PddUser
+                user_model: pdd::User
