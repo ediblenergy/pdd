@@ -8,6 +8,8 @@ primary_column service_credential_id => { data_type => integer };
 
 text_column 'email';
 
+meta_column;
+
 integer_column 'user_id';
 create_date;
 

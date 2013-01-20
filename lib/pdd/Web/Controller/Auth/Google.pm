@@ -25,11 +25,22 @@ has '+scope' => (
 
 method receive_access_token( $ctx, $access_token ) {
     log_debug { "access_token: $_[0]" } $access_token;
-    my $ret = $self->google_api->get(
+    my $userinfo = $self->google_api->get(
         params => { access_token => $access_token->access_token },
         url    => "userinfo"
     );
     Dlog_debug { "userinfo: $_" } $ret;
+    my $email = $userinfo->{email};
+
+    my $user_id = sub {
+        my $credential =
+          $ctx->model("pdd::AuthGoogle")->find( { email => $email } );
+        return $credential->pdd_user_id if $credential;
+        return $ctx->model("pdd::pddUser")
+          ->create(
+            { auth_credentials => [ { auth_google => { email => $email } } ] } )
+          ->id;
+      }->();
 }
 
 #
@@ -58,3 +69,16 @@ method receive_access_token( $ctx, $access_token ) {
 
 $class->meta->make_immutable;
 1;
+__END__
+[debug] userinfo: {
+  email => "samuel.c.kaufman\@gmail.com",
+  family_name => "Kaufman",
+  gender => "male",
+  given_name => "Samuel",
+  id => "101167906390668996295",
+  link => "https://plus.google.com/101167906390668996295",
+  locale => "en",
+  name => "Samuel Kaufman",
+  picture => "https://lh5.googleusercontent.com/-PSig2RRYGO0/AAAAAAAAAAI/AAAAAAAADH0/cFvlDZAnrxY/photo.jpg",
+  verified_email => bless( do{\(my $o = 1)}, 'JSON::XS::Boolean' )
+} at /home/skaufman/dev/pdd/script/../lib/pdd/Web/Controller/Auth/Google.pm line 32.

@@ -1,6 +1,10 @@
 package pdd::Schema::Util;
 use strictures 1;
 use DBIx::Class::Candy::Exports;
+use JSON::XS;
+
+my $json = JSON::XS->new;
+sub json { $json }
 
 sub integer   { 'integer' }
 sub text      { 'text' }
@@ -14,6 +18,23 @@ sub integer_column {
 
 sub text_column {
     shift->add_column( shift() => +{ data_type => text } );
+}
+
+sub meta_column {
+    my $class = shift;
+    $class->add_column( meta => +{ data_type => text, default_value => '{}' } );
+    $class->inflate_column(
+        meta => {
+            inflate => sub {
+                my ( $raw_value_from_db, $result_object ) = @_;
+                return json->encode( $raw_value_from_db );
+            },
+            deflate => sub {
+                my ( $inflated_value_from_user, $result_object ) = @_;
+                return json->decode( $inflated_value_from_user );
+            },
+        }
+    );
 }
 
 sub create_date {
@@ -52,6 +73,7 @@ export_methods(
           integer_column
           text_column
           serial_integer
+          meta_column
 
           integer
           text
