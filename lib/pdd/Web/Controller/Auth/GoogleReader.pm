@@ -17,11 +17,15 @@ has '+authorize_url_args' => (
 );
 
 has '+scope' => (
-    default => sub { ['http://www.google.com/reader/api'] }
+    default => sub { [qw(
+        http://www.google.com/reader/api
+        http://www.google.com/reader/atom
+    )] }
 );
 
 method receive_access_token( $ctx, $access_token ) {
     log_debug { 'receive_access_token' };
+    $ctx->user->obj->auth_google_reader( $access_token );
 }
 
 $class->meta->make_immutable;

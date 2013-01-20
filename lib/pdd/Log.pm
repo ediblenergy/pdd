@@ -1,8 +1,22 @@
 package pdd::Log;
 use strictures 1;
-use Log::Contextual::SimpleLogger;
-use parent 'Log::Contextual';
+use Moo;
+use pdd::Log::Router;
+ 
+extends 'Log::Contextual';
+ 
+#This example router is a singleton
+sub router {
+   our $Router ||= pdd::Log::Router->new
+};
+1;
+__END__
+package pdd::Log;
+use strictures 1;
+use Moo;
+extends 'Log::Contextual';
 use Exporter::Declare;
+use Log::Contextual::SimpleLogger;
 
 import_arguments qw[ logger_args ];
 

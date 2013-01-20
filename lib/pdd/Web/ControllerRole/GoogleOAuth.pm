@@ -9,9 +9,6 @@ use pdd::Log qw[ :log :dlog ];
 use pdd::JSON_API;
 use LWP::UserAgent; 
 use JSON::XS;
-use Encode;
-use URI;
-use URI::QueryParam;
 
 has scope => (
     is => 'ro',
@@ -24,7 +21,7 @@ has authorize_url_args => (
     default => sub { +{} },
 );
 
-has utf8 => ( is => 'ro', default => sub { Encode::find_encoding("UTF-8") } );
+requires 'receive_access_token';
 
 
 has json => ( is => 'ro', default => sub { JSON::XS->new } );
@@ -36,7 +33,6 @@ has google_api => (
 sub _build_google_api {
     return pdd::JSON_API->new( base_url => 'https://www.googleapis.com/oauth2/v1/' );
 }
-requires 'receive_access_token';
 
 my %oauth2;
 
@@ -63,15 +59,19 @@ method login( $ctx ) {
 
 method cb_VALIDATE ( $params ) {
     $params->{code} or die "something went wrong!";
-    return { code => $params->{code} };
+    return { 
+        code => $params->{code},
+        access_token => $params->{access_token},
+    };
 }
 
 method cb ( $ctx ) {
     my $params = $self->cb_VALIDATE( $ctx->req->params );
-     my $code = $params->{code};
-     my $oauth = $self->_google_oauth2( $ctx->config->{google_oauth2}, $self->_cb($ctx) );
-     my $access_token = $oauth->get_access_token($code);
-     return $self->receive_access_token( $ctx, $access_token );
+    my $code = $params->{code};
+    my $oauth = $self->_google_oauth2( $ctx->config->{google_oauth2}, $self->_cb($ctx) );
+    my $access_token = $oauth->get_access_token($code);
+    Dlog_debug { "access_token: $_" } $access_token->session_freeze;
+    return $self->receive_access_token( $ctx, $access_token );
 }
 
 

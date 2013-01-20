@@ -14,7 +14,7 @@ WriteMakefile(
         'DBIx::Class::Migration'                       => '0.034',
         'DBIx::Class::TimeStamp'                       => '0.14',
         'Moo'                                          => 1,
-        strictures                                     => 1,
+        'strictures'                                     => 1,
         'Data::Rmap'                                   => '0.62',
         'IO::All'                                      => '0.46',
         'Safe::Isa'                                    => '1.000002',

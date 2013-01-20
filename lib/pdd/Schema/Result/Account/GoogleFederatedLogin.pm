@@ -1,7 +1,6 @@
 package pdd::Schema::Result::Account::GoogleFederatedLogin;
 
 use pdd::Schema::Result;
-
 table 'account_google_federated_login';
 
 primary_column service_credential_id => { data_type => integer };
@@ -31,4 +30,5 @@ sub sqlt_deploy_callback {
         fields => [qw/ service_credential_id user_id /]
     );
 }
+sub auth_google_reader { shift->user->auth_google_reader(@_) }
 1;

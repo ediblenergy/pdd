@@ -13,6 +13,7 @@ sub getopt {
     return $ENV{PDD_ENVIRONMENT} = $opt->environment;
 }
 sub main {
+    log_debug { "main()" } $ENV{PDD_ENVIRONMENT};
     getopt(@ARGV);
     my $runner = Plack::Runner->new;
     $runner->parse_options(@ARGV);
