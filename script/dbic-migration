@@ -3,11 +3,21 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 use pdd::Config;
 $ENV{PDD_ENVIRONMENT} ||= 'test';
+use DBIx::Class::Migration::Script;
 my $cfg = pdd::Config->config();
-(require DBIx::Class::Migration::Script)
-->run_with_options(
-    dbic_connect_attrs => { on_connect_do => $cfg->{db}{on_connect_do}, },
-    dsn                => $cfg->{db}{dsn},
-    schema_class       => "pdd::Schema",
+DBIx::Class::Migration::Script->run_with_options(
+    dbic_connect_attrs => {
+        on_connect_do => $cfg->{db}{on_connect_do},
+        quote_names   => 1,
+    },
+    dsn           => $cfg->{db}{dsn},
+    dh_args =>
+      { 
+          sql_translator_args => { 
+              quote_identifiers => 1, 
+          },
+      },
+    schema_class  => "pdd::Schema",
+    sandbox_class => 'PostgresqlSandbox',
     extra_schemaloader_args => { db_schema => $cfg->{db}{db_schema} }
 );

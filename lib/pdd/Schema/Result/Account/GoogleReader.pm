@@ -16,6 +16,8 @@ text_column 'refresh_token';
 
 text_column 'token_type';
 
+text_column 'email';
+
 create_date;
 
 belongs_to
@@ -28,6 +30,10 @@ belongs_to
 
 belongs_to
     user => "::User", 'user_id';
+
+belongs_to
+    account_google_federated_login => "::Account::GoogleFederatedLogin",
+      { 'foreign.email' => 'self.email' };
 
 sub sqlt_deploy_callback {
     my ( $source_instance, $sqlt_table ) = @_;
