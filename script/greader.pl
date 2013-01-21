@@ -11,10 +11,12 @@ my $config = $cfg->{google_oauth2}{web};
 my $auth = Net::OAuth2::Profile::WebServer->new( %$config );
 my $access_token = Net::OAuth2::AccessToken->new( 
     profile => $auth, 
-    access_token => "ya29.AHES6ZQAZ0zSejtaUzBkyDDNnfeDUWr5oC326pjVthJj0A",#"ya29.AHES6ZRYWq7k3V0NOI4KD-zhryVRXHtmQQJIFecs2j9xlv4",
+    access_token => "ya29.AHES6ZQAZ0zSejtaUzBkyDDNnfeDUWr5oC326pjVthJj0A",
     token_type => 'Bearer',
 );
 
+p $access_token;
+warn $access_token->error;
 my $reader = WebService::Google::Reader->new(
     access_token => $access_token,
     https => 1,
@@ -22,4 +24,3 @@ my $reader = WebService::Google::Reader->new(
 );
 my $feed = $reader->state('starred', count => 10 );
 my @entries = $feed->entries;
-warn $_->title for(@entries);

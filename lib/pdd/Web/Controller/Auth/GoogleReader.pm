@@ -20,6 +20,7 @@ has '+scope' => (
     default => sub { [qw(
         http://www.google.com/reader/api
         http://www.google.com/reader/atom
+        https://www.googleapis.com/auth/userinfo.email 
     )] }
 );
 

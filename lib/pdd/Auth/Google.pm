@@ -30,15 +30,15 @@ sub _build_config {
     my $cfg = pdd::Config->config;
     return $cfg->{google_oauth2}{web};
 }
-
+method save_session($profile,$access_token) {
+}
 method _build__auth() {
     my $config = $self->config;
 
-    my %p      = (
+    my %p  = (
         client_id     => $config->{client_id},
         client_secret => $config->{client_secret},
         redirect_uri => $self->redirect_uri,
-        auto_refresh => 1,
     );
 
     my $u = URI->new( $config->{auth_uri} );
