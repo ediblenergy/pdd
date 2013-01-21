@@ -1,6 +1,6 @@
 package pdd::Web::ControllerRole::GoogleOAuth;
 use strictures 1;
-use aliased 'Net::Google::DataAPI::Auth::OAuth2' => 'GoogleOAuth2';
+use aliased 'pdd::Auth::Google' => 'GoogleOAuth2';
 use Moose::Role;
 use MooseX::Types::Moose qw[ ArrayRef ];
 use MooseX::AttributeShortcuts;
@@ -37,9 +37,9 @@ sub _build_google_api {
 my %oauth2;
 
 method _google_oauth2( $cfg, $redirect ) {
+    Dlog_debug { "cfg: $_" } $cfg;
     $oauth2{$redirect} ||= GoogleOAuth2->new(
-        client_id     => $cfg->{client_id},
-        client_secret => $cfg->{client_secret},
+        config => $cfg,
         scope         => $self->scope,
         redirect_uri  => "$redirect",
     );
@@ -53,7 +53,7 @@ method _cb( $ctx ) {
 method login( $ctx ) {
     return $ctx->res->redirect(
         $self->_google_oauth2( $ctx->config->{google_oauth2},
-            $self->_cb($ctx), )->authorize_url(%{ $self->authorize_url_args })
+            $self->_cb($ctx), )->authorize(%{ $self->authorize_url_args })
     );
 }
 
