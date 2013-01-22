@@ -11,10 +11,9 @@ has ua => ( is => 'ro', default => sub { LWP::UserAgent->new } );
 
 has json => ( is => 'ro', default => sub { JSON::XS->new } );
 
-has base_url => ( is => 'ro', required => 1,);
 
 method get( :$url, :$params = {} ) {
-    my $uri = URI->new_abs( $url, $self->base_url );
+    my $uri = URI->new($url);
     while( my($k,$v) = each(%$params) ) {
         $uri->query_param( $k => $v );
     }

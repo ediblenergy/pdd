@@ -9,7 +9,10 @@ sub import {
     strictures->import::into($target,1);
     parent->import::into( $target, 'DBIx::Class::ResultSet' );
     Function::Parameters->import::into($target);
-    $target->load_components(qw{Helper::ResultSet::ResultClassDWIM});
+    $target->load_components(qw{
+        Helper::ResultSet::ResultClassDWIM
+        +pdd::Schema::Component::ServiceId
+    });
 }
 __PACKAGE__->import();
 1;
