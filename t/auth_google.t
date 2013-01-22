@@ -15,6 +15,12 @@ ok my $user = User->find_or_create_account_google_federated_login(
     meta  => { hey => 'yo' }
   ),
   "create a user with the associated auth credentials and auth_google rows";
+ok $user->auth_google_reader(
+    access_token => 1234,
+    email        => 'billybob@hobos.com',
+    meta => { profile_pic => 'flurbs.jpg' },
+  ),
+  'auth google_reader with same user, new email';
 #ok my $user = User->create({
 #        service_credentials =>
 #        [

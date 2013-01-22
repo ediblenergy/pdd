@@ -31,4 +31,14 @@ sub sqlt_deploy_callback {
     );
 }
 sub auth_google_reader { shift->user->auth_google_reader(@_) }
+
+might_have(
+    'google_reader' => "::Account::GoogleReader",
+    { 'foreign.email' => 'self.email' },
+    { 
+        join_type       => 'inner',
+        is_foreign_key_constraint => false,
+    }
+);
+
 1;
