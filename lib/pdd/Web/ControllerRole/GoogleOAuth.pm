@@ -31,7 +31,7 @@ has google_api => (
 );
 
 sub _build_google_api {
-    return pdd::JSON_API->new( base_url => 'https://www.googleapis.com/oauth2/v1/' );
+    return pdd::JSON_API->new;
 }
 
 my %oauth2;

@@ -27,7 +27,7 @@ method receive_access_token( $ctx, $access_token ) {
     log_debug { "access_token: $_[0]" } $access_token;
     my $userinfo = $self->google_api->get(
         params => { access_token => $access_token->access_token },
-        url    => "userinfo"
+        url    => "https://www.googleapis.com/oauth2/v1/userinfo"
     );
     Dlog_debug { "userinfo: $_" } $userinfo;
     my $email = $userinfo->{email};
@@ -57,3 +57,8 @@ __END__
   picture => "https://lh5.googleusercontent.com/-PSig2RRYGO0/AAAAAAAAAAI/AAAAAAAADH0/cFvlDZAnrxY/photo.jpg",
   verified_email => bless( do{\(my $o = 1)}, 'JSON::XS::Boolean' )
 } at /home/skaufman/dev/pdd/script/../lib/pdd/Web/Controller/Auth/Google.pm line 32.
+
+
+#       modified:   lib/pdd/Web/Controller/Auth/Google.pm
+#       modified:   lib/pdd/Web/Controller/Auth/GoogleReader.pm
+#       modified:   lib/pdd/Web/ControllerRole/GoogleOAuth.pm
