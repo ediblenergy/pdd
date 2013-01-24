@@ -1,7 +1,6 @@
 package pdd::Web::Controller::Auth::Google;
 use pdd::Web::BoilerPlate;
 use pdd::Log qw[ :log :dlog ];
-use aliased 'Net::Google::DataAPI::Auth::OAuth2' => 'GoogleOAuth2';
 
 extends 'pdd::Web::Controller';
 with 'pdd::Web::ControllerRole::GoogleOAuth';

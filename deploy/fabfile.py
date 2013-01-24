@@ -24,3 +24,8 @@ def deploy():
 def test_module(module):
     with cd( '%s/%s' % ( project_dir, repo ) ):
         run( "%s perl -Ilib -M%s -e 1" % ( env_string, module) )
+
+def cpanm(args):
+        with cd('%s/%s' % ( project_dir, repo ) ):
+            run('%s cpanm -L %s/perl5 -v %s' % (env_string, project_dir, args ) )
+
