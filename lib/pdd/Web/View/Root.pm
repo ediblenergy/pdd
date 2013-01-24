@@ -1,14 +1,13 @@
 package pdd::Web::View::Root;
 use pdd::Web::BoilerPlate;
 extends 'Catalyst::Component';
-require pdd::Web;
 my $class = __PACKAGE__;
 
 has sidebar => ( is => 'lazy' );
 
 method _build_sidebar {
     HTML::Zoom->from_file(
-        pdd::Web->path_to( "root", "template", 'html/fragment/sidebar.html' ) );
+        shift->_app->path_to( "root", "template", 'html/fragment/sidebar.html' ) );
 }
 
 fun _bookmark ( :$title, :$host, :$link ) {

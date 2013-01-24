@@ -2,7 +2,6 @@ package pdd::Web::View::HTML;
 use pdd::Web::BoilerPlate;
 use Encode;
 use HTML::Zoom;
-require pdd::Web;
 extends 'Catalyst::View';
 
 has wrapper => (
@@ -16,7 +15,7 @@ has encoding => (
 
 method _build_wrapper {
     HTML::Zoom->from_file(
-        pdd::Web->path_to( "root", "template", 'html/wrapper/html5.html' ) );
+        __PACKAGE__->path_to( "root", "template", 'html/wrapper/html5.html' ) );
 }
 
 method process ( $ctx ) {
