@@ -39,6 +39,6 @@ WriteMakefile(
         'HTML::Entities'                               => 0,
         'Catalyst::Plugin::Authentication'             => '0.10021',
         'Catalyst::Authentication::Store::DBIx::Class' => '0.1503',
-        'Net::Google::DataAPI::Auth::OAuth2' =>  '0.2802',
+        'Net::OAuth2' => '0.52',
       },
 );
