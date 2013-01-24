@@ -40,5 +40,6 @@ WriteMakefile(
         'Catalyst::Plugin::Authentication'             => '0.10021',
         'Catalyst::Authentication::Store::DBIx::Class' => '0.1503',
         'Net::OAuth2' => '0.52',
+        'Test::Compile' => 0,
       },
 );
