@@ -1,0 +1,8 @@
+Service:
+    fields:
+        - name
+    data:
+        Account::GoogleFederatedLogin:
+            - google_federated_login
+        Account::GoogleReader:
+            - google_reader

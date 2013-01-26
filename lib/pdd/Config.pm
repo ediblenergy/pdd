@@ -36,12 +36,18 @@ sub config {
     $environment ||= _environment();
     return $_config{$environment} if $_config{$environment};
     my $dist_dir = dist_dir("pdd");
-    my $cfg = $_config{$environment} = Hash::Merge::Simple->merge(
-        @{ _slurp_dir( io->catfile( $dist_dir, 'shared' ) ) },
-        @{ _slurp_dir( io->catfile( $dist_dir, $environment ) ) },
+    return $_config{$environment} = $class->config_from_directories(  
+        io->catfile( $dist_dir, 'shared.env' ),
+        io->catfile( $dist_dir, "$environment.env" ),
     );
+}
+
+sub config_from_directories {
+    my ( $class, @dirs ) = @_;
+    my $cfg = Hash::Merge::Simple->merge( map { @{ _slurp_dir($_) } } @dirs );
     return $class->replace_placeholders($cfg);
 }
+
 sub replace_placeholders {
     my ( $class, $cfg ) = @_;
     rmap_scalar {
