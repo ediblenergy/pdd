@@ -24,24 +24,27 @@ method _create_gmail_account( :$email, :$meta  ) {
     return $sc->account_google_federated_login;
 }
 method auth_google_reader( :$access_token_params, :$email, :$meta ) {
-    my $guard = $self->result_source->schema->txn_scope_guard;
+    my $guard            = $self->result_source->schema->txn_scope_guard;
     my $email_account_rs = $self->service_credentials->search_related(
-        "account_google_federated_login", { email => $email } );
+        "account_google_federated_login",
+        { email => $email } );
 
     my $email_account = $email_account_rs->next
       || $self->_create_gmail_account( email => $email, meta => $meta );
 
     my $greader_account = $email_account->google_reader;
-    if(!$greader_account) {
+    if ( !$greader_account ) {
         my $sc = $self->service_credentials->create(
             { service_id => $self->service_id('google_reader'), } );
-        my $row = $sc->new_related("account_google_reader", { email => $email });
-        while( my($k,$v) = each( %$access_token_params ) ) {
+        my $row =
+          $sc->new_related( account_google_reader => { email => $email } );
+        while ( my ( $k, $v ) = each(%$access_token_params) ) {
             $row->$k($v) if $row->can($k);
         }
         $row->insert;
     }
-#    $guard->commit;
+    $guard->commit;
+    return;
 #    my $greader_account = $email_account->find_or_create_related("google_reader",{access_token => $access_token});
 }
 

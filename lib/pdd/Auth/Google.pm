@@ -24,7 +24,7 @@ has scope => ( is => 'ro', required => 1, isa => ArrayRef );
 
 has redirect_uri => (
     is => 'ro',
-    required => 1,
+    required => 0,
 );
 sub _build_config {
     require pdd::Config or die "$@ $!";
@@ -38,10 +38,10 @@ method save_session($profile,$access_token) {
 method _build__auth() {
     my $config = $self->config;
 
-    my %p  = (
+    my %p = (
         client_id     => $config->{client_id},
         client_secret => $config->{client_secret},
-        redirect_uri => $self->redirect_uri,
+        ( $self->redirect_uri ? ( redirect_uri => $self->redirect_uri ) : () ),
     );
 
     my $u = URI->new( $config->{auth_uri} );
@@ -53,8 +53,15 @@ method _build__auth() {
     $p{refresh_token_path} = $p{access_token_path} =
       sprintf( "%s" => URI->new( $config->{token_uri} )->path );
     Dlog_debug { "Net::OAuth2::Profile::WebServer($_)" } \%p;
-    my $auth = Net::OAuth2::Profile::WebServer->new(%p);
- }
+    
+    return Net::OAuth2::Profile::WebServer->new(%p);
+}
+
+method restore_access_token( :$access_token_args ) {
+#    my $access_token = Net::OAuth2::AccessToken->new( profile => $self->_auth );
+    return Net::OAuth2::AccessToken->session_thaw($access_token_args, profile => $self->_auth);
+    #return $access_token;
+}
 
 $class->meta->make_immutable;
 
