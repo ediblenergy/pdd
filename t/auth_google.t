@@ -1,22 +1,34 @@
 use strictures 1;
-use Test::More;
+use Test::More tests => 4;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 use pdd::Schema;
 use pdd::Config;
+use DateTime;
 use Test::DBIx::Class {
     schema_class=>'pdd::Schema',
      traits => [qw( Testpostgresql )],
      connect_opts => { quote_names => 1, quote_table_names => 1 },
   }, qw(User UserLink Service);
 
-ok my $google_federated_login = Service->find_or_create({ name => 'google_federated_login' });
-ok my $google_reader = Service->find_or_create({ name => 'google_reader' });
+ok my $google_federated_login =
+  Service->find_or_create( { name => 'google_federated_login' } ),
+  'find_or_create google_federated_login service';
+ok my $google_reader = Service->find_or_create( { name => 'google_reader' } ),
+  'find_or_create google_reader service';
 ok my $user = User->find_or_create_account_google_federated_login(
     email => 'sam@yo.test',
     meta  => { hey => 'yo' }
   ),
   "create a user with the associated auth credentials and auth_google rows";
 ok $user->auth_google_reader(
-    access_token => 1234,
+    access_token_params => {
+        access_token => 1234,
+        refresh_token => 'lksdjf',
+        expires_at => time(),
+        token_type => 'Bearer',
+        last_fetch => DateTime->now,
+    },
     email        => 'billybob@hobos.com',
     meta => { profile_pic => 'flurbs.jpg' },
   ),
@@ -40,5 +52,3 @@ ok $user->auth_google_reader(
 #        ]
 #    }
 #  ), 
-done_testing;
-
