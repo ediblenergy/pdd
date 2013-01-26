@@ -35,6 +35,13 @@ belongs_to
     account_google_federated_login => "::Account::GoogleFederatedLogin",
       { 'foreign.email' => 'self.email' };
 
+has_many
+    user_links => "::UserLink",
+      {
+        'foreign.service_credential_id' => 'self.service_credential_id',
+        'foreign.user_id'               => 'self.user_id'
+      };
+
 sub sqlt_deploy_callback {
     my ( $source_instance, $sqlt_table ) = @_;
     $sqlt_table->add_index(

@@ -58,7 +58,9 @@ sub update_date {
     );
 }
 
-
+sub txn_scope_guard {
+    shift->result_source->schema->storage->txn_scope_guard(@_);
+}
 
 sub default_result_namespace { 'pdd::Schema::Result' }
 
@@ -78,6 +80,8 @@ export_methods(
           integer
           text
           timestamp
+          
+          txn_scope_guard
           )
     ]
 );

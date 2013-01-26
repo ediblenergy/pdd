@@ -58,9 +58,11 @@ method _build__auth() {
 }
 
 method restore_access_token( :$access_token_args ) {
-#    my $access_token = Net::OAuth2::AccessToken->new( profile => $self->_auth );
-    return Net::OAuth2::AccessToken->session_thaw($access_token_args, profile => $self->_auth);
-    #return $access_token;
+    return Net::OAuth2::AccessToken->session_thaw(
+        $access_token_args,
+        profile      => $self->_auth,
+        auto_refresh => 0
+    );
 }
 
 $class->meta->make_immutable;
