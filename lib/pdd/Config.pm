@@ -8,7 +8,9 @@ use File::ShareDir qw[ dist_dir ];
 use IO::All;
 use Data::Printer;
 use Config::Any;
+
 my $class = __PACKAGE__;
+my $dist_dir = dist_dir("pdd");
 
 sub _environment {
     return $ENV{PDD_ENVIRONMENT} || 'dev';
@@ -35,11 +37,17 @@ sub config {
     my ( $class, $environment ) = @_;
     $environment ||= _environment();
     return $_config{$environment} if $_config{$environment};
-    my $dist_dir = dist_dir("pdd");
     return $_config{$environment} = $class->config_from_directories(  
         io->catfile( $dist_dir, 'shared.env' ),
         io->catfile( $dist_dir, "$environment.env" ),
     );
+}
+
+my %get_dir_cache;
+sub config_from_dir {
+    my ( $class, $dir ) = @_;
+    return $get_dir_cache{$dir} if $get_dir_cache{$dir};
+    return $get_dir_cache{$dir} = $class->config_from_directories( io->catfile( $dist_dir, $dir ) );
 }
 
 sub config_from_directories {
