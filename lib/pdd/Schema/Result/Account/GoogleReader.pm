@@ -55,4 +55,12 @@ sub sqlt_deploy_callback {
     );
 }
 
+method update_access_token( $access_token_params ) {
+    while ( my ( $k, $v ) = each(%$access_token_params) ) {
+        $self->$k($v) if $self->can($k);
+    }
+    $self->update;
+    return $self;
+}
+
 1;

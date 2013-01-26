@@ -52,7 +52,6 @@ method _build__auth() {
     $p{scope} = join " " => @{ $self->scope };
     $p{refresh_token_path} = $p{access_token_path} =
       sprintf( "%s" => URI->new( $config->{token_uri} )->path );
-    Dlog_debug { "Net::OAuth2::Profile::WebServer($_)" } \%p;
     
     return Net::OAuth2::Profile::WebServer->new(%p);
 }
