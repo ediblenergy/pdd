@@ -27,6 +27,8 @@ has '+scope' => (
 
 method receive_access_token( $ctx, $access_token ) {
     log_debug { 'receive_access_token' };
+    log_debug { "got the access token: $_[0]" } $access_token->access_token;
+
     my $userinfo = $self->google_api->get(
         params => { access_token => $access_token->access_token },
         url    => "https://www.googleapis.com/oauth2/v1/userinfo"
@@ -34,7 +36,7 @@ method receive_access_token( $ctx, $access_token ) {
     Dlog_debug { "userinfo: $_" } $userinfo;
     my $email = $userinfo->{email};
     $ctx->user->obj->auth_google_reader(
-        access_token => $access_token,
+        access_token_params => $access_token->session_freeze,
         email        => $email,
         meta         => $userinfo
     );

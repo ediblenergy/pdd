@@ -6,6 +6,7 @@ use Function::Parameters ':strict';
 use Net::OAuth2::Profile::WebServer;
 use URI;
 use Data::Dumper::Concise;
+use pdd::Log qw[ :dlog ];
 use 5.14.0;
 my $class = __PACKAGE__;
 
@@ -31,7 +32,9 @@ sub _build_config {
     return $cfg->{google_oauth2}{web};
 }
 method save_session($profile,$access_token) {
+
 }
+
 method _build__auth() {
     my $config = $self->config;
 
@@ -42,14 +45,14 @@ method _build__auth() {
     );
 
     my $u = URI->new( $config->{auth_uri} );
-    warn Dumper [ $u->scheme, $u->host, $u->port ];
     $p{site} = sprintf(
         "%s" => URI->new( $u->scheme . "://" . $u->host . ":" . $u->port )
           ->canonical );
     $p{authorize_path} = sprintf( "%s" => $u->path );
     $p{scope} = join " " => @{ $self->scope };
-    $p{access_token_path} =
+    $p{refresh_token_path} = $p{access_token_path} =
       sprintf( "%s" => URI->new( $config->{token_uri} )->path );
+    Dlog_debug { "Net::OAuth2::Profile::WebServer($_)" } \%p;
     my $auth = Net::OAuth2::Profile::WebServer->new(%p);
  }
 
