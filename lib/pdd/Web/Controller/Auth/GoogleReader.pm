@@ -21,12 +21,23 @@ has '+scope' => (
         http://www.google.com/reader/api
         http://www.google.com/reader/atom
         https://www.googleapis.com/auth/userinfo.email 
+        https://www.googleapis.com/auth/userinfo.profile 
     )] }
 );
 
 method receive_access_token( $ctx, $access_token ) {
     log_debug { 'receive_access_token' };
-    $ctx->user->obj->auth_google_reader( $access_token );
+    my $userinfo = $self->google_api->get(
+        params => { access_token => $access_token->access_token },
+        url    => "https://www.googleapis.com/oauth2/v1/userinfo"
+    );
+    Dlog_debug { "userinfo: $_" } $userinfo;
+    my $email = $userinfo->{email};
+    $ctx->user->obj->auth_google_reader(
+        access_token => $access_token,
+        email        => $email,
+        meta         => $userinfo
+    );
 }
 
 $class->meta->make_immutable;
