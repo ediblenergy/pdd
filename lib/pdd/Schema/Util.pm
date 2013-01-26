@@ -47,6 +47,9 @@ sub create_date {
     );
 }
 
+sub date_column {
+    shift->add_column( shift() => +{ data_type => timestamp });
+}
 sub update_date {
     my $class = shift;
     $class->add_column(
@@ -74,8 +77,10 @@ export_methods(
 
           integer_column
           text_column
-          serial_integer
+          date_column
           meta_column
+
+          serial_integer
 
           integer
           text

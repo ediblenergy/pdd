@@ -44,7 +44,7 @@ method auth_google_reader( :$access_token_params, :$email, :$meta ) {
         $row->insert;
     }
     $guard->commit;
-    return;
+    return $self;
 #    my $greader_account = $email_account->find_or_create_related("google_reader",{access_token => $access_token});
 }
 

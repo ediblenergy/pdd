@@ -20,6 +20,10 @@ text_column 'email';
 
 create_date;
 
+update_date;
+
+date_column 'last_fetch';
+
 belongs_to
   service_credential => "::ServiceCredential",
   {
