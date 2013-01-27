@@ -13,6 +13,8 @@ has_many service_credentials => "::ServiceCredential", 'user_id';
 
 has_many account_google_readers => "::Account::GoogleReader", 'user_id';
 
+has_many user_links => "::UserLink", 'user_id';
+
 resultset_class("Pdd::Schema::ResultSet::User");
 
 method _create_gmail_account( :$email, :$meta  ) {
@@ -45,7 +47,6 @@ method auth_google_reader( :$access_token_params, :$email, :$meta ) {
     }
     $guard->commit;
     return $self;
-#    my $greader_account = $email_account->find_or_create_related("google_reader",{access_token => $access_token});
 }
 
 1;

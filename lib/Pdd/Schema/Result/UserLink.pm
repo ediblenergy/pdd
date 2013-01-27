@@ -20,4 +20,6 @@ belongs_to service_credential => "::ServiceCredential", "service_credential_id";
 
 belongs_to user => "::User", "user_id";
 
+resultset_class("Pdd::Schema::ResultSet::UserLink");
+
 1;
