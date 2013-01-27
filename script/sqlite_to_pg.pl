@@ -1,11 +1,11 @@
 use strictures 1;
 use DBI;
 use Data::Printer;
-use pdd::Schema;
-use pdd::Config;
-my $sqlite = DBI->connect("dbi:SQLite:share/pdd_sqlite.db");
+use Pdd::Schema;
+use Pdd::Config;
+my $sqlite = DBI->connect("dbi:SQLite:share/Pdd_sqlite.db");
 
-my $schema = pdd::Schema->connect( pdd::Config->config("prod")->{db}{dsn} );
+my $schema = Pdd::Schema->connect( Pdd::Config->config("prod")->{db}{dsn} );
 my $rs = $schema->resultset("Bookmark");
 my $sth = $sqlite->prepare("Select * from bookmark");
 $sth->execute;

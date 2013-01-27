@@ -3,7 +3,7 @@ use strictures 1;
 use Test::More;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use Module::Pluggable search_path => [qw(pdd)];
+use Module::Pluggable search_path => [qw(Pdd)];
 
 require_ok( $_ ) for __PACKAGE__->plugins;
 

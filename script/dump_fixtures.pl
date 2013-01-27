@@ -1,9 +1,9 @@
 use DBIx::Class::Fixtures;
 use FindBin;
 use strictures 1;
-use pdd::Config;
-use pdd::Schema;
-my $schema = pdd::Schema->connect( pdd::Config->config->{db} );
+use Pdd::Config;
+use Pdd::Schema;
+my $schema = Pdd::Schema->connect( Pdd::Config->config->{db} );
 my $v = 2;
 my $set = "all_tables";
 my $fixtures = DBIx::Class::Fixtures->new(

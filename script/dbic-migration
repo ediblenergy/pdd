@@ -2,16 +2,16 @@
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 $ENV{PDD_ENVIRONMENT} ||= 'test';
-use pdd::Config;
-use pdd::Schema;
+use Pdd::Config;
+use Pdd::Schema;
 use DBIx::Class::Migration::Script;
-use pdd::Getopt;
+use Pdd::Getopt;
 
-my $opt = pdd::Getopt->getopt(@ARGV);
+my $opt = Pdd::Getopt->getopt(@ARGV);
 
-my $cfg = pdd::Config->config($opt->environment);
+my $cfg = Pdd::Config->config($opt->environment);
 
-my $schema = pdd::Schema->connect( $cfg->{db} );
+my $schema = Pdd::Schema->connect( $cfg->{db} );
 
 my $guard = $schema->storage->txn_scope_guard;
 
@@ -25,7 +25,7 @@ DBIx::Class::Migration::Script->run_with_options(
     },
     dsn           => $cfg->{db}{dsn},
     dh_args       => { sql_translator_args => { quote_identifiers => 1, }, },
-    schema_class  => "pdd::Schema",
+    schema_class  => "Pdd::Schema",
     sandbox_class => 'PostgresqlSandbox',
     extra_schemaloader_args => { db_schema => $cfg->{db}{db_schema} }
 );

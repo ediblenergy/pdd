@@ -1,6 +1,6 @@
 #!/bin/bash
-schema=pdd_prod
-db=pdd
+schema=Pdd_prod
+db=Pdd
 pg_dump \
     --schema=$schema \
     --no-owner \

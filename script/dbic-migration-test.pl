@@ -3,16 +3,16 @@ use strictures 1;
 use DBIx::Class::Migration;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use pdd::Config;
-use pdd::Schema;
-use pdd::Getopt;
+use Pdd::Config;
+use Pdd::Schema;
+use Pdd::Getopt;
 use DBIx::Class::Schema::Loader qw/ make_schema_at /;
 
-my $opt = pdd::Getopt->getopt(@ARGV);
+my $opt = Pdd::Getopt->getopt(@ARGV);
 
-my $cfg = pdd::Config->config($opt->environment);
+my $cfg = Pdd::Config->config($opt->environment);
 
-my $schema = pdd::Schema->connect( $cfg->{db} );
+my $schema = Pdd::Schema->connect( $cfg->{db} );
 
 make_schema_at( 'SCHEMA', { 
         debug => 1, 

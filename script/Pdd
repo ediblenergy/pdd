@@ -1,0 +1,23 @@
+#!/usr/bin/env perl
+use strictures 1;
+use Getopt::Long::Descriptive;
+use Plack::Runner;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use Pdd::Getopt;
+use Pdd::Log qw[ :log :dlog ];
+
+sub getopt {
+    local @ARGV = @_;
+    my $opt = Pdd::Getopt->getopt(@ARGV);
+    return $ENV{PDD_ENVIRONMENT} = $opt->environment;
+}
+sub main {
+    log_debug { "main()" } $ENV{PDD_ENVIRONMENT};
+    getopt(@ARGV);
+    my $runner = Plack::Runner->new;
+    $runner->parse_options(@ARGV);
+    log_info { "starting Pdd with $_[0] environment..." } $ENV{PDD_ENVIRONMENT};
+    $runner->run;
+}
+exit main();

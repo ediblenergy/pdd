@@ -2,8 +2,8 @@ use strictures 1;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use LWP::UserAgent;
-use pdd::Schema;
-use pdd::Config;
+use Pdd::Schema;
+use Pdd::Config;
 use IO::All -encoding => "UTF-8";
 use XML::Feed;
 use Encode;
@@ -12,9 +12,9 @@ my $ua = LWP::UserAgent->new;
 
 my $local_path = "$FindBin::Bin/../share/starred.xml";
 
-my $config = pdd::Config->config;
+my $config = Pdd::Config->config;
 
-my $schema = pdd::Schema->connect( $config->{db} );
+my $schema = Pdd::Schema->connect( $config->{db} );
 
 my $rs = $schema->resultset("Bookmark");
 

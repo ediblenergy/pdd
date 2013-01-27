@@ -4,22 +4,22 @@ use lib "$FindBin::Bin/../lib";
 use WebService::Google::Reader;
 use Net::OAuth2::AccessToken;
 
-use pdd::Auth::Google;
-use pdd::Config;
-use pdd::Schema;
-use pdd::Log qw[ :dlog ];
+use Pdd::Auth::Google;
+use Pdd::Config;
+use Pdd::Schema;
+use Pdd::Log qw[ :dlog ];
 use Encode;
 use DateTime::Format::Atom;
 
 my $utf8 = Encode::find_encoding("UTF-8");
 
-my $cfg = pdd::Config->config;
+my $cfg = Pdd::Config->config;
 
 
-my $schema = pdd::Schema->connect( $cfg->{db} );
+my $schema = Pdd::Schema->connect( $cfg->{db} );
 
 
-my $auth = pdd::Auth::Google->new(
+my $auth = Pdd::Auth::Google->new(
     scope => [
         qw(
           http://www.google.com/reader/api

@@ -2,11 +2,11 @@ use strictures 1;
 use Test::More tests => 4;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use pdd::Schema;
-use pdd::Config;
+use Pdd::Schema;
+use Pdd::Config;
 use DateTime;
 use Test::DBIx::Class {
-    schema_class=>'pdd::Schema',
+    schema_class=>'Pdd::Schema',
      traits => [qw( Testpostgresql )],
      connect_opts => { quote_names => 1, quote_table_names => 1 },
   }, qw(User UserLink Service);
