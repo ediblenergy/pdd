@@ -1,23 +1,33 @@
 #!/usr/bin/env perl
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use pdd::Config;
 $ENV{PDD_ENVIRONMENT} ||= 'test';
+use pdd::Config;
+use pdd::Schema;
 use DBIx::Class::Migration::Script;
-my $cfg = pdd::Config->config();
+use pdd::Getopt;
+
+my $opt = pdd::Getopt->getopt(@ARGV);
+
+my $cfg = pdd::Config->config($opt->environment);
+
+my $schema = pdd::Schema->connect( $cfg->{db} );
+
+my $guard = $schema->storage->txn_scope_guard;
+
+local @ARGV = @{ $opt->extra_argv };
+
 DBIx::Class::Migration::Script->run_with_options(
+    schema => $schema,
     dbic_connect_attrs => {
         on_connect_do => $cfg->{db}{on_connect_do},
         quote_names   => 1,
     },
     dsn           => $cfg->{db}{dsn},
-    dh_args =>
-      { 
-          sql_translator_args => { 
-              quote_identifiers => 1, 
-          },
-      },
+    dh_args       => { sql_translator_args => { quote_identifiers => 1, }, },
     schema_class  => "pdd::Schema",
     sandbox_class => 'PostgresqlSandbox',
     extra_schemaloader_args => { db_schema => $cfg->{db}{db_schema} }
 );
+
+$guard->commit if $opt->commit;

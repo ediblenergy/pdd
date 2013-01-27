@@ -12,6 +12,6 @@ sub import  {
     strictures->import::into( $target, 1 );
     Moose->import::into($target);
     MooseX::AttributeShortcuts->import::into($target);
-    MooseX::Types::Moose->import::into($target,qw[ ArrayRef Str Int HashRef ]);
+    MooseX::Types::Moose->import::into($target,qw[ ArrayRef Str Int HashRef Bool]);
 }
 1;
