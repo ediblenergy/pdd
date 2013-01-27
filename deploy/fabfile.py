@@ -29,3 +29,7 @@ def cpanm(args):
         with cd('%s/%s' % ( project_dir, repo ) ):
             run('%s cpanm -L %s/perl5 -v %s' % (env_string, project_dir, args ) )
 
+def test():
+    with cd(project_dir):
+        with cd('%s/%s' % ( project_dir, repo ) ):
+            run( '%s prove -lv' % env_string )

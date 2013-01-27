@@ -41,5 +41,6 @@ WriteMakefile(
         'Catalyst::Authentication::Store::DBIx::Class' => '0.1503',
         'Net::OAuth2' => '0.52',
         'Test::Compile' => 0,
+        'Plack::Middleware::ReverseProxy' => '0.15',
       },
 );
