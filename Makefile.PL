@@ -5,8 +5,8 @@ use ExtUtils::MakeMaker;
 (do 'maint/Makefile.PL.include' or die $@) unless -f 'META.yml';
 
 WriteMakefile(
-    NAME         => 'pdd',
-    VERSION_FROM => 'lib/pdd.pm',
+    NAME         => 'Pdd',
+    VERSION_FROM => 'lib/Pdd.pm',
     PREREQ_PM => {
         'DBIx::Class'                                  => '0.08204',
         'DBIx::Class::Candy'                           => '0.002103',
