@@ -1,0 +1,11 @@
+catalyst:
+    Controller::User:
+        action:
+            base:
+                Chained: /
+                CaptureArgs: 0
+                PathPart: user
+            view:
+                Chained: base
+                PathPart: ""
+                Args: 1
