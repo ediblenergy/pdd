@@ -2,6 +2,8 @@ package Pdd::Web::View::HTML;
 use Pdd::Web::BoilerPlate;
 use Encode;
 use HTML::Zoom;
+use IO::All;
+
 extends 'Catalyst::View';
 
 has wrapper => (
@@ -13,13 +15,23 @@ has encoding => (
     default => sub { Encode::find_encoding("UTF-8") },
 );
 
+has home_dir => ( is => 'ro', required => 1 );
+
 method _build_wrapper {
     HTML::Zoom->from_file(
-        __PACKAGE__->path_to( "root", "template", 'html/wrapper/html5.html' ) );
+        io->catfile(
+            $self->home_dir->{path}, qw[
+              root
+              template
+              html
+              wrapper
+              html5.html
+              ] ) );
 }
 
 method process ( $ctx ) {
-    my $file    = $ctx->path_to( "root", "template", $ctx->stash->{template} );
+    my $file = io->catfile( $self->home_dir->{path}, "root", "template",
+                            $ctx->stash->{template} );
     my $wrapper = $self->wrapper;
     my $view    = ref $ctx->controller;
     my $action_name = $ctx->action->name;
