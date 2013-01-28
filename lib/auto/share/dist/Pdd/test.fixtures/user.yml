@@ -1,0 +1,28 @@
+- User:
+    fields:
+        - user_id
+    data:
+        sam:
+            - 1
+        joanna:
+            - 2
+- ServiceCredential:
+    fields:
+        - service
+        - user
+    data:
+        sam_greader:
+            - "!Find:Service.[name=google_reader]"
+            - "!Index:User.sam"
+- UserLink:
+    fields:
+        - link
+        - title
+        - service_credential
+        - user
+    data:
+        yd:
+            - http://www.yibberdibber.com
+            - Yibber Dibber
+            - "!Index:ServiceCredential.sam_greader"
+            - "!Index:User.sam"

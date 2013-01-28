@@ -1,6 +1,9 @@
 catalyst:
     Controller::User:
         action:
+            '*' :
+                Does:
+                    - +CatalystX::ActionRole::StashReturnInData
             base:
                 Chained: /
                 CaptureArgs: 0

@@ -1,15 +1,15 @@
 package Pdd::Config;
 use strictures 1;
 
-#use Moo;
 use Data::Rmap qw[ rmap_scalar ];
 use Hash::Merge::Simple;
 use File::ShareDir qw[ dist_dir ];
 use IO::All;
 use Data::Printer;
 use Config::Any;
-
+use Pdd::Log qw[ :dlog ];
 my $class = __PACKAGE__;
+
 my $dist_dir = dist_dir("Pdd");
 
 sub _environment {
@@ -48,6 +48,15 @@ sub config_from_dir {
     my ( $class, $dir ) = @_;
     return $get_dir_cache{$dir} if $get_dir_cache{$dir};
     return $get_dir_cache{$dir} = $class->config_from_directories( io->catfile( $dist_dir, $dir ) );
+}
+
+sub config_from_file {
+    my ( $class, $file ) = @_;
+    warn $file;
+    my ($config) =
+      map { values %$_ }
+      @{ Config::Any->load_files( { files => ["$file"], use_ext => 1 } ) };
+    return $class->replace_placeholders($config);
 }
 
 sub config_from_directories {
