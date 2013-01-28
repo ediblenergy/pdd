@@ -10,6 +10,6 @@ use Test::DBIx::Class {
   }, qw(User UserLink Schema);
 
 
-ok( Pdd::Schema::Populate->new->run(Schema),"populate fixtures on test schema" );
+ok( Pdd::Schema::Populate->new(schema => Schema)->run,"populate fixtures on test schema" );
 
 done_testing;
