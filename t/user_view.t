@@ -3,6 +3,7 @@ use lib "$FindBin::Bin/../lib", "$FindBin::Bin/lib";
 use TestBoilerPlate;
 use Pdd::Schema::Populate;
 
+plan tests => 3;
 
 use Test::DBIx::Class {
     schema_class=>'Pdd::Schema',

@@ -4,8 +4,6 @@ catalyst:
     google_oauth2: __VAR({google_oauth2}{web})__
     encoding: UTF-8
     app_name: Pdd
-    View::HTML: 
-        home_dir: __VAR({home_dir})__
     Model::Pdd:
         connect_info: __VAR({db})__
     Plugin::Cache:
@@ -27,3 +25,7 @@ catalyst:
             store:
                 class: DBIx::Class
                 user_model: Pdd::User
+    View::HTML: 
+        home_dir: __VAR({home_dir})__
+    View::User:
+        home_dir: __VAR({home_dir})__

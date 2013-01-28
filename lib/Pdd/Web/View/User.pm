@@ -1,16 +1,26 @@
-package Pdd::Web::View::Root;
+package Pdd::Web::View::User;
 use Pdd::Web::BoilerPlate;
 extends 'Catalyst::Component';
+
+use IO::All;
 my $class = __PACKAGE__;
 
 has sidebar => ( is => 'lazy' );
+has home_dir => ( is => 'ro', required => 1 );
 
 method _build_sidebar {
     HTML::Zoom->from_file(
-        shift->_app->path_to( "root", "template", 'html/fragment/sidebar.html' ) );
+        io->catfile(
+            $self->home_dir->{path}, qw[
+              root
+              template
+              html
+              fragment
+              sidebar.html
+              ] ) );
 }
 
-fun _bookmark ( :$title, :$host, :$link ) {
+fun _link ( :$title, :$host, :$link ) {
     fun($entry) {
         $entry->select("a")
             ->set_attribute( href => $link )
@@ -21,12 +31,12 @@ fun _bookmark ( :$title, :$host, :$link ) {
     }
 }
 
-method root( $ctx, : $template, : $data ) {
+method view( $ctx, : $template, : $data ) {
     $template->select(".bookmark")->repeat_content(
         [
             map {
                 my $entry = $_;
-                _bookmark(
+                _link(
                     title => $entry->{title},
                     host  => $entry->{host},
                     link  => $entry->{link},
