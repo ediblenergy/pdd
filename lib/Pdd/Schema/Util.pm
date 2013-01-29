@@ -13,7 +13,9 @@ sub timestamp { 'timestamp with time zone' }
 sub serial_integer { +{ is_auto_increment => 1, data_type => integer } }
 
 sub integer_column {
-    shift->add_column( shift() => { data_type => integer } )
+    my($class,$col,$params) = @_;
+    $params ||= {};
+    $class->add_column( $col => { data_type => integer, %$params } )
 }
 
 sub text_column {
@@ -48,7 +50,9 @@ sub create_date {
 }
 
 sub date_column {
-    shift->add_column( shift() => +{ data_type => timestamp });
+    my($class,$col,$params) = @_;
+    $params ||= {};
+    shift->add_column( shift() => +{ data_type => timestamp, %$params });
 }
 sub update_date {
     my $class = shift;
