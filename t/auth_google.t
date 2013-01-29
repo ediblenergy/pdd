@@ -27,7 +27,6 @@ ok $user->auth_google_reader(
         refresh_token => 'lksdjf',
         expires_at => time(),
         token_type => 'Bearer',
-        last_fetch => DateTime->now,
     },
     email        => 'billybob@hobos.com',
     meta => { profile_pic => 'flurbs.jpg' },

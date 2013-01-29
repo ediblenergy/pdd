@@ -1,4 +1,8 @@
 from fabric.api import run, cd
+
+env.hosts=["localhost"]
+env.user="supervisord"
+
 project_dir = '/opt/pdd'
 repo = 'pdd'
 branch = 'master'
@@ -9,6 +13,7 @@ env_prefixes=[
     'PERL_MM_OPT="INSTALL_BASE=/opt/pdd/perl5"',
     'PERL5LIB="%s/%s/lib:/opt/pdd/perl5/lib/perl5/x86_64-linux:/opt/pdd/perl5/lib/perl5"' % ( project_dir, repo ),
     'PATH="/opt/pdd/perl5/bin:$PATH"',
+    'HARNESS_OPTIONS=j4:c',
 ]
 env_string = " ".join(env_prefixes)
 
