@@ -30,31 +30,24 @@ belongs_to
   },
   { add_fk_index => false, };
 
-belongs_to
-    user => "::User", 'user_id';
+belongs_to user => "::User", 'user_id';
 
-belongs_to
-    account_google_federated_login => "::Account::GoogleFederatedLogin",
-      { 'foreign.email' => 'self.email' };
+belongs_to account_google_federated_login => "::Account::GoogleFederatedLogin",
+  { 'foreign.email' => 'self.email' };
 
-has_many
-    user_links => "::UserLink",
-      {
-        'foreign.service_credential_id' => 'self.service_credential_id',
-        'foreign.user_id'               => 'self.user_id'
-      };
+has_many user_links => "::UserLink",
+  {
+    'foreign.service_credential_id' => 'self.service_credential_id',
+    'foreign.user_id'               => 'self.user_id'
+  };
 
 sub sqlt_deploy_callback {
     my ( $source_instance, $sqlt_table ) = @_;
-    $sqlt_table->add_index(
-        name   => 'agr_service_credential_id_user_id_idx',
-        fields => [qw/ service_credential_id user_id /]
-    );
+    $sqlt_table->add_index( name   => 'agr_service_credential_id_user_id_idx',
+                            fields => [qw/ service_credential_id user_id /] );
 
-    $sqlt_table->add_index(
-        name => 'agr_expires_at_idx',
-        fields => [qw/expires_at/],
-    );
+    $sqlt_table->add_index( name   => 'agr_expires_at_idx',
+                            fields => [qw/expires_at/], );
 }
 
 method update_access_token( $access_token_params ) {
@@ -64,5 +57,12 @@ method update_access_token( $access_token_params ) {
     $self->update;
     return $self;
 }
+
+has_many fetches => "::ServiceCredentialFetch",
+  {
+    'foreign.service_credential_id' => 'self.service_credential_id',
+    'foreign.user_id'               => 'self.user_id'
+  },
+  { is_foreign_key_constraint => false };
 
 1;

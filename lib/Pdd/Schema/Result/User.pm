@@ -9,13 +9,15 @@ primary_column user_id => { data_type => integer, is_auto_increment => 1 };
 
 create_date;
 
-has_many service_credentials => "::ServiceCredential", 'user_id';
 
-has_many account_google_readers => "::Account::GoogleReader", 'user_id';
 
 has_many user_links => "::UserLink", 'user_id';
 
 has_many service_credential_fetches => "::ServiceCredentialFetch", 'user_id';
+
+has_many service_credentials => "::ServiceCredential", 'user_id';
+
+has_many account_google_readers => "::Account::GoogleReader", 'user_id';
 
 resultset_class("Pdd::Schema::ResultSet::User");
 
