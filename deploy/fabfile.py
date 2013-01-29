@@ -1,4 +1,4 @@
-from fabric.api import run, cd
+from fabric.api import run, cd, env
 
 env.hosts=["localhost"]
 env.user="supervisord"
@@ -22,7 +22,7 @@ def deploy():
     with cd(project_dir):
         with cd('%s/%s' % ( project_dir, repo ) ):
             run('git clean -fd && git fetch && git checkout %s && git pull origin %s' % ( branch, branch ))
-            run('%s cpanm -L %s/perl5 --installdeps . -v' % (env_string, project_dir ) )
+            run('%s cpanm -L %s/perl5 --installdeps .' % (env_string, project_dir ) )
             run('%s perl -Ilib Makefile.PL' % env_string)
             run( '%s make test' % env_string )
 
