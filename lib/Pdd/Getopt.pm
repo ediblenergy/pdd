@@ -1,6 +1,6 @@
 package Pdd::Getopt;
 use strictures 1;
-use Getopt::Long qw(:config pass_through);
+use Getopt::Long qw(:config pass_through permute);
 use Data::Dumper::Concise;
 use Pdd::Moose;
 with 'MooseX::Getopt';
