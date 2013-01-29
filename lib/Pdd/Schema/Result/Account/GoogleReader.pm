@@ -1,6 +1,7 @@
 package Pdd::Schema::Result::Account::GoogleReader;
 
 use Pdd::Schema::Result;
+use DateTime;
 
 table 'account_google_reader';
 
@@ -56,6 +57,13 @@ method update_access_token( $access_token_params ) {
     }
     $self->update;
     return $self;
+}
+
+method last_fetch() {
+    if( my $f = $self->fetches->next) {
+        return $f->last_fetch;
+    }
+    return DateTime->from_epoch( epoch => 0);
 }
 
 has_many fetches => "::ServiceCredentialFetch",

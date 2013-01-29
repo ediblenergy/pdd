@@ -45,7 +45,9 @@ sub _fetch_feed {
         compress     => 0,
     );
 
-    my $feed = $reader->state( 'starred', count => 50 );
+    my $feed = $reader->state( 'starred', count => 50,
+        start_time => $google_reader_account->last_fetch->epoch );
+
     my $num_fetched = 0;
     do {
         my @entries = $feed->entries;
@@ -67,7 +69,10 @@ sub _fetch_feed {
         }
 
     } while ( $reader->more($feed) );
-    $google_reader_account->fetches->create( { num_fetched => $num_fetched } );
+    if($num_fetched) {
+        $google_reader_account->fetches->create(
+            { num_fetched => $num_fetched } );
+    }
     $guard->commit;
 }
 _fetch_feed($_) for $schema->resultset("Account::GoogleReader")->all;
