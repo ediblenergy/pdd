@@ -10,6 +10,7 @@ $class->load_classes(
               User
               UserLink
               ServiceCredential
+              ServiceCredentialFetch
               Service
               Account::GoogleFederatedLogin
               Account::GoogleReader
