@@ -36,4 +36,6 @@ might_have
     is_foreign_key_constraint => 0,
   };
 
+has_many service_credential_fetches => "::ServiceCredentialFetch", 'service_credential_id';
+
 1;
