@@ -42,5 +42,6 @@ WriteMakefile(
         'Net::OAuth2' => '0.52',
         'Test::Compile' => 0,
         'Plack::Middleware::ReverseProxy' => '0.15',
+        'WebService::Google::Reader' => 0,
       },
 );

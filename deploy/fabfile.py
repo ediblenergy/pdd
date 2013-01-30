@@ -18,7 +18,6 @@ env_prefixes=[
 env_string = " ".join(env_prefixes)
 
 def deploy():
-
     with cd(project_dir):
         with cd('%s/%s' % ( project_dir, repo ) ):
             run('git clean -fd && git fetch && git checkout %s && git pull origin %s' % ( branch, branch ))
