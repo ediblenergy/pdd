@@ -43,5 +43,6 @@ WriteMakefile(
         'Test::Compile' => 0,
         'Plack::Middleware::ReverseProxy' => '0.15',
         'WebService::Google::Reader' => 0,
+        'DateTime::Format::Atom' => 0,
       },
 );

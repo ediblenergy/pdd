@@ -25,9 +25,9 @@ def deploy():
             run('%s perl -Ilib Makefile.PL' % env_string)
             run( '%s make test' % env_string )
 
-def test_module(module):
+def test_module(cmd):
     with cd( '%s/%s' % ( project_dir, repo ) ):
-        run( "%s perl -Ilib -M%s -e 1" % ( env_string, module) )
+        run( "%s perl -Ilib %s" % ( env_string, cmd) )
 
 def cpanm(args):
         with cd('%s/%s' % ( project_dir, repo ) ):
