@@ -49,7 +49,7 @@ sub _fetch_feed {
       ->first;
     my $feed = $reader->state(
         'starred', count => 50, sort => 'asc',
-        ( $latest_entry ? ( start_time => $latest_entry->epoch ) : () ),
+        ( $latest_entry ? ( start_time => $latest_entry->create_date->epoch ) : () ),
     );
 
     my $num_fetched = 0;
