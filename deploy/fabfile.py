@@ -8,6 +8,7 @@ repo = 'pdd'
 branch = 'master'
 env_prefixes=[
     'PATH=/usr/local/apps-perl/5.16.0/bin:$PATH',
+    'DBIC_TRACE=1',
     'PERL_LOCAL_LIB_ROOT="$PERL_LOCAL_LIB_ROOT:/opt/pdd/perl5"',
     'PERL_MB_OPT="--install_base /opt/pdd/perl5"',
     'PERL_MM_OPT="INSTALL_BASE=/opt/pdd/perl5"',
@@ -17,17 +18,27 @@ env_prefixes=[
 ]
 env_string = " ".join(env_prefixes)
 
-def deploy():
+def installdeps():
+    with cd(project_dir):
+        with cd('%s/%s' % ( project_dir, repo ) ):
+            run('%s cpanm -L %s/perl5 --installdeps .' % (env_string, project_dir ) )
+
+def checkout():
     with cd(project_dir):
         with cd('%s/%s' % ( project_dir, repo ) ):
             run('git clean -fd && git fetch && git checkout %s && git pull origin %s' % ( branch, branch ))
-            run('%s cpanm -L %s/perl5 --installdeps .' % (env_string, project_dir ) )
+    
+def deploy():
+    with cd(project_dir):
+        with cd('%s/%s' % ( project_dir, repo ) ):
+            checkout()
+            installdeps()
             run('%s perl -Ilib Makefile.PL' % env_string)
             run( '%s make test' % env_string )
 
-def test_module(cmd):
+def perl(cmd,pdd_env='dev'):
     with cd( '%s/%s' % ( project_dir, repo ) ):
-        run( "%s perl -Ilib %s" % ( env_string, cmd) )
+        run( "PDD_ENVIRONMENT=%s %s perl -Ilib %s" % (pdd_env,env_string, cmd) )
 
 def cpanm(args):
         with cd('%s/%s' % ( project_dir, repo ) ):

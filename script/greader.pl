@@ -3,13 +3,13 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 use WebService::Google::Reader;
 use Net::OAuth2::AccessToken;
-
+use Devel::REPL;
 use Pdd::Auth::Google;
 use Pdd::Config;
 use Pdd::Schema;
 use Pdd::Log qw[ :dlog ];
 use Encode;
-use DateTime::Format::Atom;
+use DateTime;
 
 my $utf8 = Encode::find_encoding("UTF-8");
 
@@ -44,9 +44,13 @@ sub _fetch_feed {
         https        => 1,
         compress     => 0,
     );
-
-    my $feed = $reader->state( 'starred', count => 50,
-        start_time => $google_reader_account->last_fetch->epoch );
+    my $latest_entry =
+      $user_links->search( {}, { order_by => { -desc => 'create_date' } } )
+      ->first;
+    my $feed = $reader->state(
+        'starred', count => 50, sort => 'asc',
+        ( $latest_entry ? ( start_time => $latest_entry->epoch ) : () ),
+    );
 
     my $num_fetched = 0;
     do {
@@ -54,14 +58,15 @@ sub _fetch_feed {
         for my $entry (@entries) {
             my $link  = $utf8->encode( $entry->link->href );
             my $title = $utf8->encode( $entry->title );
-            my $published =
-              DateTime::Format::Atom->parse_datetime( $entry->published );
+#            my $published =
+#              DateTime::Format::Atom->parse_datetime( $entry->published );
+            my $starred_epoch  = int( $entry->elem->getAttribute('gr:crawl-timestamp-msec') / 1000 );
             unless ( $user_links->find( { link => $link } ) ) {
                 $user_links->create(
                     {
                         link        => $link,
                         title       => $title,
-                        create_date => $published,
+                        create_date => DateTime->from_epoch( epoch => $starred_epoch),
                     }
                 );
                 $num_fetched++;

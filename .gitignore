@@ -8,3 +8,5 @@ google_oauth2.json
 *.pyc
 client_secrets.json
 Makefile.old
+dump.rdb
+test.pl
