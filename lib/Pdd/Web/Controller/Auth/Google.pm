@@ -21,7 +21,6 @@ has '+scope' => (
     }
 );
 
-
 method receive_access_token( $ctx, $access_token ) {
     log_debug { "access_token: $_[0]" } $access_token;
     my $userinfo = $self->google_api->get(

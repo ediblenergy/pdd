@@ -18,3 +18,5 @@ catalyst:
                 Path: /wc
             login:
                 Local: 1
+            logout:
+                Local: 1

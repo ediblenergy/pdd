@@ -3,6 +3,7 @@ use Pdd::Web::BoilerPlate;
 use Pdd::Log qw[ :log :dlog ];
 use Encode;
 extends 'Pdd::Web::Controller';
+with 'Pdd::Web::Role::NextUrl';
 has encoding => (
     is => 'ro',
     default => sub { Encode::find_encoding("UTF-8") },
@@ -33,6 +34,12 @@ method login( $ctx ) {
             $ctx->controller("Auth::Google")->action_for('login')
         )
     );
+    return $ctx->detach;
+}
+
+method logout ( $ctx ) {
+    $ctx->logout;
+    $ctx->res->redirect( $self->next_url($ctx) );
     return $ctx->detach;
 }
 
