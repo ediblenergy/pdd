@@ -30,8 +30,7 @@ method login( $ctx ) {
     log_info { "login" };
     $ctx->res->redirect(
         $ctx->uri_for_action(
-            $ctx->controller("Auth::Google")->action_for('login'),
-            $ctx->req->params
+            $ctx->controller("Auth::Google")->action_for('login')
         )
     );
     return $ctx->detach;

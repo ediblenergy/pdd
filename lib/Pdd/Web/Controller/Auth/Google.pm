@@ -37,8 +37,6 @@ method receive_access_token( $ctx, $access_token ) {
         meta  => $userinfo
       );
     $ctx->authenticate( { email => $email },"google_federated_login" );
-    $ctx->res->redirect('/');
-    return $ctx->detach;
 }
 
 $class->meta->make_immutable;
