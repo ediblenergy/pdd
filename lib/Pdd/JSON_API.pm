@@ -1,5 +1,6 @@
 package Pdd::JSON_API;
 use strictures 1;
+use Carp;
 use Moo;
 use LWP::UserAgent; 
 use JSON::XS;
@@ -15,9 +16,13 @@ has json => ( is => 'ro', default => sub { JSON::XS->new } );
 has base_url => ( is => 'ro', required => 0,);
 
 method uri( $uri ) {
-    $uri = URI->new($uri) unless $uri->$_isa("URI");
+    unless( $uri->$_isa('URI') ) {
+        $uri = URI->new($uri);
+        Dlog_debug { "new uri: $_" } $uri;
+    }
     return $uri if $uri->scheme; #absolutish
-    $uri->clone->abs( $self->base_url->clone );
+    confess "base_url required for relative requests!" unless $self->base_url;
+    $uri->clone->abs( URI->new($self->base_url) );
 }
 method get( :$url, :$params = {} ) {
     my $uri = $self->uri($url);
