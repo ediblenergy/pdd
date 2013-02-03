@@ -46,9 +46,6 @@ sub sqlt_deploy_callback {
     my ( $source_instance, $sqlt_table ) = @_;
     $sqlt_table->add_index( name   => 'agr_service_credential_id_user_id_idx',
                             fields => [qw/ service_credential_id user_id /] );
-
-    $sqlt_table->add_index( name   => 'agr_expires_at_idx',
-                            fields => [qw/expires_at/], );
 }
 
 method update_access_token( $access_token_params ) {

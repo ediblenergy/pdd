@@ -19,6 +19,8 @@ has_many service_credentials => "::ServiceCredential", 'user_id';
 
 has_many account_google_readers => "::Account::GoogleReader", 'user_id';
 
+has_many account_soundclouds => "::Account::Soundcloud", 'user_id';
+
 resultset_class("Pdd::Schema::ResultSet::User");
 
 method _create_gmail_account( :$email, :$meta  ) {

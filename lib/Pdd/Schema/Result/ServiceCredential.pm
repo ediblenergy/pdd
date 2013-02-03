@@ -36,6 +36,14 @@ might_have
     is_foreign_key_constraint => 0,
   };
 
+might_have
+  account_soundcloud => "::Account::Soundcloud",
+  {
+    'foreign.service_credential_id' => 'self.service_credential_id',
+    'foreign.user_id'               => 'self.user_id'
+  },
+  { is_foreign_key_constraint => 0, };
+
 has_many service_credential_fetches => "::ServiceCredentialFetch",
   {
     'foreign.service_credential_id' => 'self.service_credential_id',
