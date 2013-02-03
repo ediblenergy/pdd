@@ -1,7 +1,5 @@
 package Pdd::Auth::Google;
-use strictures 1;
 use Pdd::Moose;
-use Net::Google::FederatedLogin;
 use Function::Parameters ':strict';
 use Net::OAuth2::Profile::WebServer;
 use URI;
@@ -30,9 +28,6 @@ sub _build_config {
     require Pdd::Config or die "$@ $!";
     my $cfg = Pdd::Config->config;
     return $cfg->{google_oauth2}{web};
-}
-method save_session($profile,$access_token) {
-
 }
 
 method _build__auth() {
