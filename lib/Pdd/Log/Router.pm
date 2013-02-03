@@ -15,14 +15,14 @@ sub before_import {
    my ($self, %export_info) = @_;
    my $exporter = $export_info{exporter};
    my $target = $export_info{target};
-   print STDERR "Package '$target' will import from '$exporter'\n";
+#   print STDERR "Package '$target' will import from '$exporter'\n";
 }
  
 sub after_import {
    my ($self, %export_info) = @_;
    my $exporter = $export_info{exporter};
    my $target = $export_info{target};
-   print STDERR "Package '$target' has imported from '$exporter'\n";
+#   print STDERR "Package '$target' has imported from '$exporter'\n";
 }
  
 sub handle_log_request {
