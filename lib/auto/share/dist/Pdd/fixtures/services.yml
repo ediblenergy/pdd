@@ -6,3 +6,5 @@ Service:
             - google_federated_login
         Account::GoogleReader:
             - google_reader
+        Account::Soundcloud:
+            - soundcloud

@@ -2,6 +2,7 @@ use strictures 1;
 use Test::More;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
+plan tests => 1;
 use Pdd::Schema::Populate;
 use Test::DBIx::Class {
     schema_class=>'Pdd::Schema',
@@ -12,4 +13,3 @@ use Test::DBIx::Class {
 
 ok( Pdd::Schema::Populate->new(schema => Schema)->run,"populate fixtures on test schema" );
 
-done_testing;
