@@ -1,0 +1,14 @@
+catalyst:
+    Controller::Auth::Github:
+        soundcloud_oauth2: __VAR({github})__
+        action:
+            "*":
+                Does:
+                    - AuthRequired
+            login:
+                Local: 1
+                Args:  0
+            cb:
+                Local: 1
+                Args:  0
+
