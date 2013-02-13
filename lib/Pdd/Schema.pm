@@ -1,7 +1,7 @@
 package Pdd::Schema;
 use strictures 1;
 use parent 'DBIx::Class::Schema';
-our $VERSION = 7;
+our $VERSION = 8;
 my $class = __PACKAGE__;
 $class->load_classes(
     {
@@ -12,6 +12,7 @@ $class->load_classes(
               ServiceCredential
               ServiceCredentialFetch
               Service
+              OAuth2Credential
               Account::GoogleFederatedLogin
               Account::GoogleReader
               Account::Soundcloud
