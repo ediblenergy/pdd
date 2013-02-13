@@ -10,7 +10,7 @@ with 'Pdd::Web::ControllerRole::OAuth2';
 
 has github_api => ( is => 'lazy' );
 
-has github_oauth2 => ( is => 'ro', required => 1 );
+has oauth2_config => ( is => 'ro', required => 1 );
 
 method _build_soundcloud_api {
     return Pdd::JSON_API->new( base_url => 'https://api.github.com/' );

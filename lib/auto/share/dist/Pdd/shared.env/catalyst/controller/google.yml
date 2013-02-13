@@ -1,6 +1,6 @@
 catalyst:
     Controller::Auth::Google:
-        oauth2_config: __VAR({google_oauth2}{web})__
+        oauth2_config: __VAR({oauth2}{google})__
         action:
             login:
                 Local: 1
@@ -9,7 +9,7 @@ catalyst:
                 Local: 1
                 Args:  0
     Controller::Auth::GoogleReader:
-        oauth2_config: __VAR({google_oauth2}{web})__
+        oauth2_config: __VAR({oauth2}{google})__
         action:
             "*":
                 Does:

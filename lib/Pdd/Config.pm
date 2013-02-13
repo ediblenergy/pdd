@@ -8,6 +8,7 @@ use IO::All;
 use Data::Printer;
 use Config::Any;
 use Pdd::Log qw[ :dlog ];
+use Carp;
 my $class = __PACKAGE__;
 
 my $dist_dir = dist_dir("Pdd");
@@ -78,7 +79,7 @@ sub replace_placeholders {
             $str =~ s/(^{|}$)//g;
             my @arr = split( '}{', $str );
             for (@arr) { 
-                $ptr = $ptr->{$_} || die "invalid string $str"; 
+                $ptr = $ptr->{$_} || confess "invalid string $str"; 
             }
             $_ = $ptr;
         }

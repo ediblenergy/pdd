@@ -1,15 +1,21 @@
 package Pdd::Web::Controller::Auth::Google;
 use Pdd::Web::BoilerPlate;
+use Pdd::JSON_API;
 use Pdd::Log qw[ :log :dlog ];
-
+use URI;
+use URI::QueryParam;
 extends 'Pdd::Web::Controller';
-with 'Pdd::Web::ControllerRole::GoogleOAuth';
+with 'Pdd::Web::ControllerRole::OAuth2';
 
-use Pdd::Auth::Google;
+has google_api => ( is => 'lazy' );
+
+has oauth2_config => ( is => 'ro', required => 1 );
+
+sub _build_google_api { Pdd::JSON_API->new }
 
 my $class = __PACKAGE__;
 
-has '+scope' => (
+has scope => (
     is      => 'ro',
     default => sub {
         return [
@@ -21,6 +27,13 @@ has '+scope' => (
     }
 );
 
+method oauth2($redirect) {
+    Net::OAuth2::Profile::WebServer->new(
+        %{ $self->oauth2_config },
+        redirect_uri => $redirect,
+        scope        => join( " " => @{ $self->scope } ),
+    );
+}
 method receive_access_token( $ctx, $access_token ) {
     log_debug { "access_token: $_[0]" } $access_token;
     my $userinfo = $self->google_api->get(

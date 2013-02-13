@@ -1,8 +1,6 @@
 home_dir:
     path: "" #to be set on startup
 catalyst:
-    google_oauth2: __VAR({google_oauth2}{web})__
-    soundcloud_oauth2: __VAR({soundcloud})__
     encoding: UTF-8
     app_name: Pdd
     Model::Pdd:

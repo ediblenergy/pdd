@@ -1,6 +1,6 @@
 catalyst:
     Controller::Auth::Github:
-        oauth2_config: __VAR({github})__
+        oauth2_config: __VAR({oauth2}{github})__
         action:
             "*":
                 Does:
