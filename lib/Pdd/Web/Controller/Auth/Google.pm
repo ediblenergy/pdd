@@ -1,4 +1,5 @@
 package Pdd::Web::Controller::Auth::Google;
+use Net::OAuth2::Profile::WebServer;
 use Pdd::Web::BoilerPlate;
 use Pdd::JSON_API;
 use Pdd::Log qw[ :log :dlog ];

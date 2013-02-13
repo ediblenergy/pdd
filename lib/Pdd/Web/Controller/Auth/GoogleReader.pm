@@ -1,10 +1,11 @@
 package Pdd::Web::Controller::Auth::GoogleReader;
+use Net::OAuth2::Profile::WebServer;
 use Pdd::Web::BoilerPlate;
 use Pdd::Log qw[ :log :dlog ];
 my $class = __PACKAGE__;
 
 extends 'Pdd::Web::Controller';
-with 'Pdd::Web::ControllerRole::GoogleOAuth';
+with 'Pdd::Web::ControllerRole::OAuth2';
 
 has '+authorize_url_args' => (
     default =>
@@ -16,7 +17,10 @@ has '+authorize_url_args' => (
       }
 );
 
-has '+scope' => (
+has oauth2_config => ( is => 'ro', required => 1 );
+
+has scope => (
+    is => 'ro',
     default => sub { [qw(
         http://www.google.com/reader/api
         http://www.google.com/reader/atom
@@ -24,6 +28,17 @@ has '+scope' => (
         https://www.googleapis.com/auth/userinfo.profile 
     )] }
 );
+
+has google_api => ( is => 'lazy' );
+sub _build_google_api { Pdd::JSON_API->new }
+
+method oauth2($redirect) {
+    Net::OAuth2::Profile::WebServer->new(
+        %{ $self->oauth2_config },
+        redirect_uri => $redirect,
+        scope        => join( " " => @{ $self->scope } ),
+    );
+}
 
 method receive_access_token( $ctx, $access_token ) {
     log_debug { 'receive_access_token' };
