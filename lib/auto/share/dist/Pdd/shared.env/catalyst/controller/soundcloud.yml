@@ -1,6 +1,6 @@
 catalyst:
     Controller::Auth::Soundcloud:
-        soundcloud_oauth2: __VAR({soundcloud})__
+        oauth2_config: __VAR({soundcloud})__
         action:
             "*":
                 Does:

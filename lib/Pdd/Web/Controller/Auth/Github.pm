@@ -1,4 +1,4 @@
-package Pdd::Web::Controller::Auth::Soundcloud;
+package Pdd::Web::Controller::Auth::Github;
 use Pdd::Web::BoilerPlate;
 use Pdd::Log qw[ :log :dlog ];
 use Pdd::JSON_API;
@@ -8,12 +8,12 @@ my $class = __PACKAGE__;
 extends 'Pdd::Web::Controller';
 with 'Pdd::Web::ControllerRole::OAuth2';
 
-has soundcloud_api => ( is => 'lazy' );
+has github_api => ( is => 'lazy' );
 
-has oauth2_config => ( is => 'ro', required => 1 );
+has github_oauth2 => ( is => 'ro', required => 1 );
 
 method _build_soundcloud_api {
-    return Pdd::JSON_API->new( base_url => 'https://api.soundcloud.com/' );
+    return Pdd::JSON_API->new( base_url => 'https://api.github.com/' );
 }
 method oauth2($redirect) {
     Net::OAuth2::Profile::WebServer->new( %{ $self->oauth2_config },

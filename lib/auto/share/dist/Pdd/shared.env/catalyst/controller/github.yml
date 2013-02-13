@@ -1,6 +1,6 @@
 catalyst:
     Controller::Auth::Github:
-        soundcloud_oauth2: __VAR({github})__
+        oauth2_config: __VAR({github})__
         action:
             "*":
                 Does:
