@@ -28,6 +28,9 @@ method receive_access_token( $ctx, $access_token ) {
     );
     Dlog_debug { "me.json: $_" } $me;
 #    https://api.soundcloud.com/me.json
+    $ctx->user->obj->auth_soundcloud(
+        access_token_params => $access_token->session_freeze,
+    );
 }
 $class->meta->make_immutable;
 1;

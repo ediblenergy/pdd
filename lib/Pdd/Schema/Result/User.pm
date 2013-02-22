@@ -21,6 +21,8 @@ has_many account_google_readers => "::Account::GoogleReader", 'user_id';
 
 has_many account_soundclouds => "::Account::Soundcloud", 'user_id';
 
+has_many oauth2_credentials => "::OAuth2Credential", 'user_id';
+
 resultset_class("Pdd::Schema::ResultSet::User");
 
 method _create_gmail_account( :$email, :$meta  ) {
@@ -53,6 +55,11 @@ method auth_google_reader( :$access_token_params, :$email, :$meta ) {
     }
     $guard->commit;
     return $self;
+}
+
+method auth_soundcloud( :$access_token_params ) {
+    my $guard            = $self->result_source->schema->txn_scope_guard;
+    my $soundcloud_service = service_id('soundcloud');
 }
 
 1;
