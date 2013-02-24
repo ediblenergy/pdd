@@ -4,7 +4,7 @@ use Pdd::Schema::Result;
 table 'oauth2_credential';
 
 
-primary_column access_token => { data_type => integer };
+primary_column access_token => { data_type => text };
 
 text_column refresh_token => { is_nullable => 1, default_value => undef };
 
