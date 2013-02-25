@@ -1,6 +1,6 @@
 package Pdd::Schema::Result::OAuth2Credential;
 use Pdd::Schema::Result;
-
+use Carp;
 table 'oauth2_credential';
 
 
@@ -40,6 +40,22 @@ belongs_to service => "::Service", 'service_id';
 
 belongs_to user => "::User", 'user_id';
 
+sub insert {
+    my $self = shift;
+    confess 'requires user_id' unless $self->user_id;
+    confess 'required service_id' unless $self->service_id;
+    my $schema = $self->result_source->schema;
+    my $guard = $schema->txn_scope_guard;
+    unless ( $self->service_credential_id ) {
+        $self->service_credential(
+            $schema->resultset("ServiceCredential")->create(
+                { service_id => $self->service_id, user_id => $self->user_id } )
+        );
+    }
+    my $row = $self->next::method(@_);
+    $guard->commit;
+    return $row;
+}
 sub is_expired { 
     shift->expires_at < time();
 }
