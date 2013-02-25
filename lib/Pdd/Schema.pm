@@ -21,7 +21,7 @@ $class->load_classes(
     }
 );
 for my $source ( 
-    grep { $_->resultset_class eq 'DBIx::Class:ResultSet' }
+    grep { $_->resultset_class eq 'DBIx::Class::ResultSet' }
     map { $class->source($_) } $class->sources 
 )
 {
