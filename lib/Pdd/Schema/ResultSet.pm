@@ -12,6 +12,7 @@ sub import {
     Function::Parameters->import::into($target);
     $target->load_components(qw{
         Helper::ResultSet::ResultClassDWIM
+        Helper::ResultSet::Me
         +Pdd::Schema::Component::ServiceId
     });
     Pdd::Schema::SharedUtil->import::into($target,'utf8_encoding');

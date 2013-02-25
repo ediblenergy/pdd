@@ -77,4 +77,7 @@ sub _fetch_feed {
     }
     $guard->commit;
 }
-_fetch_feed($_) for $schema->resultset("Account::GoogleReader")->all;
+_fetch_feed($_)
+  for $schema->resultset("User")
+  ->google_reader_credentials
+  ->all;

@@ -3,6 +3,8 @@ package Pdd::Schema::Result::User;
 use Safe::Isa;
 use Pdd::Schema::Result;
 
+my $class = __PACKAGE__;
+
 table 'user';
 
 primary_column user_id => { data_type => integer, is_auto_increment => 1 };
@@ -17,13 +19,14 @@ has_many service_credential_fetches => "::ServiceCredentialFetch", 'user_id';
 
 has_many service_credentials => "::ServiceCredential", 'user_id';
 
-has_many account_google_readers => "::Account::GoogleReader", 'user_id';
-
 has_many account_soundclouds => "::Account::Soundcloud", 'user_id';
 
 has_many oauth2_credentials => "::OAuth2Credential", 'user_id';
 
 resultset_class("Pdd::Schema::ResultSet::User");
+
+$class->proxy_resultset_method( google_reader_credentials =>
+      { resultset_method => 'google_reader_credentials' } );
 
 method _create_gmail_account( :$email, :$meta  ) {
     my $sc = $self->service_credentials->create({

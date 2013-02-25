@@ -14,6 +14,7 @@ sub _candy_components {
       +Pdd::Schema::Util
       +Pdd::Schema::Component::ServiceId
       Helper::Row::RelationshipDWIM
+      Helper::Row::ProxyResultSetMethod 
       ];
     if( $params->{extra_components} ) {
         push( @imports, @{ delete $params->{extra_components} } );

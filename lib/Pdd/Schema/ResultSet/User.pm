@@ -23,4 +23,10 @@ method find_or_create_account_google_federated_login( :$email, :$meta ) {
         }
     );
 }
+
+method google_reader_credentials {
+    $self->search_related("oauth2_credentials")->search(
+        { service_id => $self->service_id('google_reader') } 
+    )
+}
 1;
