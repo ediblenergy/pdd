@@ -1,0 +1,1079 @@
+---
+schema:
+  procedures: {}
+  tables:
+    account_google_federated_login:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - email
+          match_type: ''
+          name: agfl_email_idx
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+            - user_id
+          match_type: ''
+          name: account_google_federated_login_fk_service_credential_id_user_id
+          on_delete: CASCADE
+          on_update: ''
+          options: []
+          reference_fields:
+            - service_credential_id
+            - user_id
+          reference_table: service_credential
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+          match_type: ''
+          name: account_google_federated_login_fk_user_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - user_id
+          reference_table: user
+          type: FOREIGN KEY
+      fields:
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 5
+          size:
+            - 0
+        email:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: email
+          order: 2
+          size:
+            - 0
+        meta:
+          data_type: text
+          default_value: '{}'
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: meta
+          order: 3
+          size:
+            - 0
+        service_credential_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: service_credential_id
+          order: 1
+          size:
+            - 0
+        user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_id
+          order: 4
+          size:
+            - 0
+      indices:
+        - fields:
+            - user_id
+          name: account_google_federated_login_idx_user_id
+          options: []
+          type: NORMAL
+      name: account_google_federated_login
+      options: []
+      order: 4
+    account_google_reader:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - email
+          match_type: ''
+          name: account_google_reader_fk_email
+          on_delete: CASCADE
+          on_update: ''
+          options: []
+          reference_fields:
+            - email
+          reference_table: account_google_federated_login
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+            - user_id
+          match_type: ''
+          name: account_google_reader_fk_service_credential_id_user_id
+          on_delete: CASCADE
+          on_update: ''
+          options: []
+          reference_fields:
+            - service_credential_id
+            - user_id
+          reference_table: service_credential
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+          match_type: ''
+          name: account_google_reader_fk_user_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - user_id
+          reference_table: user
+          type: FOREIGN KEY
+      fields:
+        access_token:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: access_token
+          order: 4
+          size:
+            - 0
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 8
+          size:
+            - 0
+        email:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: email
+          order: 7
+          size:
+            - 0
+        expires_at:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: expires_at
+          order: 3
+          size:
+            - 0
+        refresh_token:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: refresh_token
+          order: 5
+          size:
+            - 0
+        service_credential_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: service_credential_id
+          order: 1
+          size:
+            - 0
+        token_type:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: token_type
+          order: 6
+          size:
+            - 0
+        update_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: update_date
+          order: 9
+          size:
+            - 0
+        user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - email
+          name: account_google_reader_idx_email
+          options: []
+          type: NORMAL
+        - fields:
+            - user_id
+          name: account_google_reader_idx_user_id
+          options: []
+          type: NORMAL
+      name: account_google_reader
+      options: []
+      order: 9
+    account_soundcloud:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+            - user_id
+          match_type: ''
+          name: account_soundcloud_fk_service_credential_id_user_id
+          on_delete: CASCADE
+          on_update: ''
+          options: []
+          reference_fields:
+            - service_credential_id
+            - user_id
+          reference_table: service_credential
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+          match_type: ''
+          name: account_soundcloud_fk_user_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - user_id
+          reference_table: user
+          type: FOREIGN KEY
+      fields:
+        access_token:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: access_token
+          order: 3
+          size:
+            - 0
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 8
+          size:
+            - 0
+        expires_at:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: expires_at
+          order: 5
+          size:
+            - 0
+        meta:
+          data_type: text
+          default_value: '{}'
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: meta
+          order: 7
+          size:
+            - 0
+        refresh_token:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: refresh_token
+          order: 4
+          size:
+            - 0
+        service_credential_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: service_credential_id
+          order: 1
+          size:
+            - 0
+        souncloud_user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: souncloud_user_id
+          order: 6
+          size:
+            - 0
+        update_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: update_date
+          order: 9
+          size:
+            - 0
+        user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - user_id
+          name: account_soundcloud_idx_user_id
+          options: []
+          type: NORMAL
+      name: account_soundcloud
+      options: []
+      order: 5
+    oauth2_credential:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - access_token
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+          match_type: ''
+          name: oauth2_credential_service_credential_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_id
+          match_type: ''
+          name: oauth2_credential_fk_service_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - service_id
+          reference_table: service
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+            - service_id
+            - user_id
+          match_type: ''
+          name: oauth2_credential_fk_service_credential_id_service_id_user_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - service_credential_id
+            - service_id
+            - user_id
+          reference_table: service_credential
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+          match_type: ''
+          name: oauth2_credential_fk_user_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - user_id
+          reference_table: user
+          type: FOREIGN KEY
+      fields:
+        access_token:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: access_token
+          order: 1
+          size:
+            - 0
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 9
+          size:
+            - 0
+        expires_at:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: expires_at
+          order: 4
+          size:
+            - 0
+        refresh_token:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: refresh_token
+          order: 3
+          size:
+            - 0
+        scope:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: scope
+          order: 5
+          size:
+            - 0
+        service_credential_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: service_credential_id
+          order: 2
+          size:
+            - 0
+        service_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: service_id
+          order: 7
+          size:
+            - 0
+        token_type:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: token_type
+          order: 6
+          size:
+            - 0
+        update_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: update_date
+          order: 10
+          size:
+            - 0
+        user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_id
+          order: 8
+          size:
+            - 0
+      indices:
+        - fields:
+            - service_id
+          name: oauth2_credential_idx_service_id
+          options: []
+          type: NORMAL
+        - fields:
+            - user_id
+          name: oauth2_credential_idx_user_id
+          options: []
+          type: NORMAL
+        - fields:
+            - create_date
+          name: oauth2_credential_create_date_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - user_id
+            - service_id
+            - service_credential_id
+          name: oauth2_credential_idx2
+          options: []
+          type: NORMAL
+      name: oauth2_credential
+      options: []
+      order: 6
+    service:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - name
+          match_type: ''
+          name: service_name
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+      fields:
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 3
+          size:
+            - 0
+        name:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: name
+          order: 2
+          size:
+            - 0
+        service_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: service_id
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: service
+      options: []
+      order: 1
+    service_credential:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+            - user_id
+          match_type: ''
+          name: sc_service_credential_id_user_id_idx
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+            - service_id
+            - service_credential_id
+          match_type: ''
+          name: sc_service_credential_id_user_id_idx2
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_id
+          match_type: ''
+          name: service_credential_fk_service_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - service_id
+          reference_table: service
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+          match_type: ''
+          name: service_credential_fk_user_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - user_id
+          reference_table: user
+          type: FOREIGN KEY
+      fields:
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 4
+          size:
+            - 0
+        service_credential_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 1
+          name: service_credential_id
+          order: 1
+          size:
+            - 0
+        service_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: service_id
+          order: 2
+          size:
+            - 0
+        user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: user_id
+          order: 3
+          size:
+            - 0
+      indices:
+        - fields:
+            - service_id
+          name: service_credential_idx_service_id
+          options: []
+          type: NORMAL
+        - fields:
+            - user_id
+          name: service_credential_idx_user_id
+          options: []
+          type: NORMAL
+      name: service_credential
+      options: []
+      order: 3
+    service_credential_fetch:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+            - last_fetch
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+          match_type: ''
+          name: service_credential_fetch_fk_service_credential_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - service_credential_id
+          reference_table: service_credential
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+          match_type: ''
+          name: service_credential_fetch_fk_user_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - user_id
+          reference_table: user
+          type: FOREIGN KEY
+      fields:
+        last_fetch:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: last_fetch
+          order: 4
+          size:
+            - 0
+        num_fetched:
+          data_type: integer
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: num_fetched
+          order: 3
+          size:
+            - 0
+        service_credential_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: service_credential_id
+          order: 1
+          size:
+            - 0
+        user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_id
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - service_credential_id
+          name: service_credential_fetch_idx_service_credential_id
+          options: []
+          type: NORMAL
+        - fields:
+            - user_id
+          name: service_credential_fetch_idx_user_id
+          options: []
+          type: NORMAL
+      name: service_credential_fetch
+      options: []
+      order: 7
+    user:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 2
+          size:
+            - 0
+        user_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_id
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: user
+      options: []
+      order: 2
+    user_link:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_link_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - service_credential_id
+          match_type: ''
+          name: user_link_fk_service_credential_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - service_credential_id
+          reference_table: service_credential
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_id
+          match_type: ''
+          name: user_link_fk_user_id
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - user_id
+          reference_table: user
+          type: FOREIGN KEY
+      fields:
+        create_date:
+          data_type: timestamp with time zone
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: create_date
+          order: 6
+          size:
+            - 0
+        link:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: link
+          order: 2
+          size:
+            - 0
+        service_credential_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: service_credential_id
+          order: 4
+          size:
+            - 0
+        title:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: title
+          order: 3
+          size:
+            - 0
+        user_id:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_id
+          order: 5
+          size:
+            - 0
+        user_link_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_link_id
+          order: 1
+          size:
+            - 0
+      indices:
+        - fields:
+            - service_credential_id
+          name: user_link_idx_service_credential_id
+          options: []
+          type: NORMAL
+        - fields:
+            - user_id
+          name: user_link_idx_user_id
+          options: []
+          type: NORMAL
+      name: user_link
+      options: []
+      order: 8
+  triggers: {}
+  views: {}
+translator:
+  add_drop_table: 0
+  filename: ~
+  no_comments: 0
+  parser_args:
+    DBIx::Class::Schema: ~
+    DBIx::Schema: ~
+    package: ~
+    sources:
+      - Account::Soundcloud
+      - Account::GoogleReader
+      - User
+      - UserLink
+      - Account::GoogleFederatedLogin
+      - Service
+      - ServiceCredentialFetch
+      - OAuth2Credential
+      - ServiceCredential
+  parser_type: SQL::Translator::Parser::DBIx::Class
+  producer_args: {}
+  producer_type: SQL::Translator::Producer::YAML
+  show_warnings: 0
+  trace: 0
+  version: 0.11016

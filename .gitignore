@@ -11,3 +11,6 @@ Makefile.old
 dump.rdb
 test.pl
 *_secrets.*
+fixtures
+pm_to_blib
+blib/

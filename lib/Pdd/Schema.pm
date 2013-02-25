@@ -1,7 +1,7 @@
 package Pdd::Schema;
 use strictures 1;
 use parent 'DBIx::Class::Schema';
-our $VERSION = 9;
+our $VERSION = 10;
 my $class = __PACKAGE__;
 $class->load_classes(
     {

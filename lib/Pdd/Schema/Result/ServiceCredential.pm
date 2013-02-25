@@ -18,6 +18,8 @@ create_date;
 unique_constraint(
     sc_service_credential_id_user_id_idx => [qw( service_credential_id user_id )] );
 
+unique_constraint( sc_service_credential_id_user_id_idx2 =>
+      [qw( user_id service_id service_credential_id )] );
 might_have
   account_google_federated_login => "::Account::GoogleFederatedLogin",
   {
