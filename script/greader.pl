@@ -2,9 +2,8 @@ use strictures 1;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use WebService::Google::Reader;
+use Net::OAuth2::Profile::WebServer;
 use Net::OAuth2::AccessToken;
-use Devel::REPL;
-use Pdd::Auth::Google;
 use Pdd::Config;
 use Pdd::Schema;
 use Pdd::Log qw[ :dlog ];
@@ -17,13 +16,8 @@ my $cfg = Pdd::Config->config;
 
 my $schema = Pdd::Schema->connect( $cfg->{db} );
 
-my $auth = Pdd::Auth::Google->new(
-    scope => [
-        qw(
-          http://www.google.com/reader/api
-          http://www.google.com/reader/atom
-          )
-    ],
+my $auth = Net::OAuth2::Profile::WebServer->new(
+    %{ $cfg->{oauth2}{google} },
 );
 
 sub _fetch_feed {
@@ -33,8 +27,11 @@ sub _fetch_feed {
 
     my $user_links = $google_reader_account->user_links;
 
-    my $access_token = $auth->restore_access_token(
-        access_token_args => { $google_reader_account->get_inflated_columns } );
+    my $access_token = Net::OAuth2::AccessToken->session_thaw(
+        { $google_reader_account->get_columns },
+        profile      => $auth,
+        auto_refresh => 0
+    );
     $access_token->refresh;
     my $params = $access_token->session_freeze;
     Dlog_debug { "access_toke: $_" } $params;

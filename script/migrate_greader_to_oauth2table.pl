@@ -31,16 +31,5 @@ foreach my $greader_auth ($schema->resultset("Account::GoogleReader")->all) {
             user_id => $cols{user_id},
         });
 }
+$guard->commit;
 1;
-__END__
-$VAR1 = {
-          'refresh_token' => '1/GxGM25PrFX4aC8PyMkNHI86uIzgDmNkpGYokvCIRd8c',
-          'expires_at' => 1359850603,
-          'access_token' => 'ya29.AHES6ZQU_k5ex9bGCv3nw2UUnaNsaAKfHCqYk8aOhqEGOkK_',
-          'create_date' => '2013-01-26 05:45:07+00',
-          'email' => 'samuel.c.kaufman@gmail.com',
-          'service_credential_id' => 4,
-          'update_date' => '2013-02-02 23:16:43+00',
-          'user_id' => 1,
-          'token_type' => 'Bearer'
-        };
