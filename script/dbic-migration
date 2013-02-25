@@ -1,8 +1,9 @@
 #!/usr/bin/env perl
 use FindBin;
+#use Devel::SimpleTrace;
 use lib "$FindBin::Bin/../lib";
-$ENV{PDD_ENVIRONMENT} ||= 'test';
-$ENV{DBIC_TRACE} //= 1;
+local $ENV{PDD_ENVIRONMENT} //= 'test';
+local $ENV{DBIC_TRACE} //= 1;
 use Pdd::Config;
 use Pdd::Schema;
 use DBIx::Class::Migration::Script;
