@@ -72,6 +72,13 @@ has_many user_links => "::UserLink",
     'foreign.service_credential_id' => 'self.service_credential_id',
     'foreign.user_id'               => 'self.user_id'
   };
+
+has_many fetches => "::ServiceCredentialFetch",
+  {
+    'foreign.service_credential_id' => 'self.service_credential_id',
+    'foreign.user_id'               => 'self.user_id'
+  };
+
 sub sqlt_deploy_hook {
     my ( $source_instance, $sqlt_table ) = @_;
     $sqlt_table->add_index(

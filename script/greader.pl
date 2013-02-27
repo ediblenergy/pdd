@@ -45,7 +45,7 @@ sub _fetch_feed {
       $user_links->search( {}, { order_by => { -desc => 'create_date' } } )
       ->first;
     my $feed = $reader->state(
-        'starred', count => 50, sort => 'asc',
+        'starred', count => 500, sort => 'asc',
         ( $latest_entry ? ( start_time => $latest_entry->create_date->epoch ) : () ),
     );
 
@@ -55,8 +55,6 @@ sub _fetch_feed {
         for my $entry (@entries) {
             my $link  = $utf8->encode( $entry->link->href );
             my $title = $utf8->encode( $entry->title );
-#            my $published =
-#              DateTime::Format::Atom->parse_datetime( $entry->published );
             my $starred_epoch  = int( $entry->elem->getAttribute('gr:crawl-timestamp-msec') / 1000 );
             unless ( $user_links->find( { link => $link } ) ) {
                 $user_links->create(
