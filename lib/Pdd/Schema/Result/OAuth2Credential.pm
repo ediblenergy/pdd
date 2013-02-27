@@ -56,10 +56,22 @@ sub insert {
     $guard->commit;
     return $row;
 }
+method update_access_token( $access_token_params ) {
+    while ( my ( $k, $v ) = each(%$access_token_params) ) {
+        $self->$k($v) if $self->can($k);
+    }
+    $self->update;
+    return $self;
+}
 sub is_expired { 
     shift->expires_at < time();
 }
 
+has_many user_links => "::UserLink",
+  {
+    'foreign.service_credential_id' => 'self.service_credential_id',
+    'foreign.user_id'               => 'self.user_id'
+  };
 sub sqlt_deploy_hook {
     my ( $source_instance, $sqlt_table ) = @_;
     $sqlt_table->add_index(
